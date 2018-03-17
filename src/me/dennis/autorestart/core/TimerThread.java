@@ -3,10 +3,12 @@ package me.dennis.autorestart.core;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
+import me.dennis.autorestart.utils.Messenger;
 import me.dennis.autorestart.utils.ShutdownTimeout;
 
 public class TimerThread implements Runnable {
@@ -27,7 +29,7 @@ public class TimerThread implements Runnable {
 				List<Integer> minuteReminderList = Config.REMINDER.MINUTES();
 				for (Integer minuteReminder : minuteReminderList) {
 					if (TIME == minuteReminder * 60) {
-						// TODO Broadcast Reminder
+						Messenger.broadcastReminderMinutes();
 					}
 				}
 			}
@@ -36,7 +38,7 @@ public class TimerThread implements Runnable {
 			if (Config.REMINDER.ENABLED.SECONDS()) {
 				Integer secondReminder = Config.REMINDER.SECONDS();
 				if (TIME <= secondReminder) {
-					// TODO Broadcast Reminder
+					Messenger.broadcastReminderSeconds();
 				}
 			}
 			
@@ -60,7 +62,7 @@ public class TimerThread implements Runnable {
 				public void run() {
 					
 					// Player kick / restart message
-					player.kickPlayer("Shutdown message!");
+					player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Config.MAIN.RESTART_MESSAGE()));
 					
 				}
 				
@@ -72,7 +74,8 @@ public class TimerThread implements Runnable {
 		if (Config.MAX_PLAYERS.ENABLED()) {
 			// Check if player count is over configured amount
 			if (Bukkit.getOnlinePlayers().size() >= Config.MAX_PLAYERS.AMOUNT()) {
-				// TODO Broadcast alert
+				// Broadcast alert (Includes Check if message enabled)
+				Messenger.broadcastMaxplayersAlert();
 
 				// Start Shutdown wait
 				while (true) {
@@ -86,7 +89,8 @@ public class TimerThread implements Runnable {
 					}
 				}
 				
-				// TODO Broadcast pre shutdown message
+				// Broadcast pre shutdown message (Includes Check if message enabled)
+				Messenger.broadcastMaxplayersPreShutdown();
 			}
 		}
 		
@@ -106,9 +110,9 @@ public class TimerThread implements Runnable {
 	}
 	
 	public void calculateTimer() {
-		// Check config restart mode
-		switch (Config.MAIN.RESTART_MODE().toLowerCase()) {
-		case "interval":
+		// Check restart mode
+		switch (Config.MAIN.RESTART_MODE().toUpperCase()) {
+		case "INTERVAL":
 			
 			// Interval timer calculator
 			TIME = (int) (Config.MAIN.MODES.INTERVAL() * 3600);

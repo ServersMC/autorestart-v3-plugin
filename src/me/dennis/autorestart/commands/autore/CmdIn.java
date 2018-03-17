@@ -59,11 +59,11 @@ public class CmdIn extends AutoCommand {
 		
 		// Send updated time to sender
 		HMS hms = TimerParser.parseToHMS(AutoRestart.TIMER.TIME);
-		sender.sendMessage(GRAY + "Server now restarting in" + RED + hms.H + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
-		Console.consoleSendMessage(" Command execution successful: Server now restarting in" + hms.H + " Hours " + hms.M + " Minutes and " + hms.S + " Seconds!");
+		sender.sendMessage(GRAY + "Server now restarting in " + RED + hms.H + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
+		Console.consoleSendMessage(" Command execution successful: Server now restarting in " + hms.H + " Hours " + hms.M + " Minutes and " + hms.S + " Seconds!");
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			TitleAPI.sendTitle(player, 10, 40, 10, RED + "Server now restarting in", RED + hms.H.toString() + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
+			TitleAPI.sendTitle(player, 10, 40, 10, RED + "Server now restarting in ", RED + hms.H.toString() + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
 		}
 	}
 
