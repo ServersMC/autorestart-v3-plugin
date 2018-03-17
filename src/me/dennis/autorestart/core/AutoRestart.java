@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dennis.autorestart.commands.CmdAutoRestart;
+import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
 
 
@@ -15,16 +16,19 @@ public class AutoRestart extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
-		// Plug-in initialization
+		// Plug-in
 		PLUGIN = this;
 		VERSION = getDescription().getVersion();
+		
+		// Configuration file
+		Config.setConfig(getConfig());
 
-		// Command initialization
+		// Command
 		new CmdAutoRestart();
 		CmdAutoRestart.setupSubCommands();
 		Bukkit.getPluginCommand("autore").setExecutor(new CmdAutoRestart());
 		
-		// Timer initialization
+		// Timer
 		TIMER.calculateTimer();
 		new Thread(TIMER).start();
 		

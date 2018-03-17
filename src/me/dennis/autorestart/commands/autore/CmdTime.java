@@ -16,10 +16,7 @@ public class CmdTime extends AutoCommand {
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		HMS hms = TimerParser.parseToHMS(AutoRestart.TIMER.TIME);
-		sender.sendMessage(GRAY + "Server will restart in "
-				+ RED + hms.H + GRAY + " Hours "
-				+ RED + hms.M + GRAY + " Minutes and "
-				+ RED + hms.S + GRAY + " Seconds!");
+		sender.sendMessage(GRAY + "Server will restart in " + RED + hms.H + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			TitleAPI.sendTitle(player, 10, 40, 10, RED + "Server will restart in", RED + hms.H.toString() + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");

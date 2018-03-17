@@ -2,20 +2,29 @@ package me.dennis.autorestart.utils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import me.dennis.autorestart.core.AutoRestart;
-
 public class Config {
 
-	private static FileConfiguration config = AutoRestart.PLUGIN.getConfig();
+    private static FileConfiguration config = null;
+    
+    public static Integer VERSION;
+    
+    private static FileConfiguration getConfig() {
+        return config;
+    }
+    
+    public static void setConfig(FileConfiguration config) {
+        Config.config = config;
+        VERSION = getInteger("version", 0);
+    }
 
 	private static String getString(String node, String defaultValue) {
-		return config.getString(node, defaultValue);
+		return getConfig().getString(node, defaultValue);
 	}
 	private static Integer getInteger(String node, Integer defaultValue) {
-		return config.getInt(node, defaultValue);
+		return getConfig().getInt(node, defaultValue);
 	}
 	private static Double getDouble(String node, Double defaultValue) {
-		return config.getDouble(node, defaultValue);
+		return getConfig().getDouble(node, defaultValue);
 	}
 	
 	public static class MAIN {
