@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 import me.dennis.autorestart.commands.CmdAutoRestart;
 import me.dennis.autorestart.core.AutoRestart;
@@ -50,7 +50,7 @@ public class CmdHelp extends AutoCommand {
 				if (cmdFind.getPermission() != null) {
 					if (!sender.hasPermission(cmdFind.getPermission())) {
 						sender.sendMessage(RED + "You do not have permission to view this sub command dictionary!");
-						if (sender instanceof ConsoleCommandSender) {
+						if (sender instanceof Player) {
 							Console.consoleSendMessage(" Not enough permissions to view that sub commands dictionary!");
 						}
 						return;
@@ -61,7 +61,7 @@ public class CmdHelp extends AutoCommand {
 				try {
 					
 					// Setup Buffered Reader
-					InputStreamReader stream = new InputStreamReader(AutoRestart.PLUGIN.getResource("help_dictionary/" + cmdFind.getLabel().toLowerCase() + ".dict"));
+					InputStreamReader stream = new InputStreamReader(AutoRestart.PLUGIN.getResource("/help_dictionary/" + cmdFind.getLabel().toLowerCase() + ".dict"));
 					BufferedReader reader = new BufferedReader(stream);
 					
 					// Output dictionary
@@ -76,7 +76,7 @@ public class CmdHelp extends AutoCommand {
 				}
 				
 				// Console notify
-				if (sender instanceof ConsoleCommandSender) {
+				if (sender instanceof Player) {
 					Console.consoleSendMessage(" Player reading \"" + cmdFind.getLabel().toLowerCase() + "\" dictionary!");
 				}
 				
@@ -85,7 +85,7 @@ public class CmdHelp extends AutoCommand {
 			
 			// Sub command not found
 			sender.sendMessage(RED + "That sub command was not found! Type \"/autore help\" to view the list of commands!");
-			if (sender instanceof ConsoleCommandSender) {
+			if (sender instanceof Player) {
 				Console.consoleSendMessage(" Entered an invalid sub command!");
 			}
 			
