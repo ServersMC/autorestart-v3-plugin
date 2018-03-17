@@ -45,7 +45,7 @@ public class Config {
 			public static String TIMESTAMP() { return getString("main.modes.timestamp", "6:00"); }
 		}
 		public static String PREFIX() { return getString("main.prefix", "&f[&7AutoRestart&f] &e"); }
-		public static String RESTART_MESSAGE() { return getString("main.restart_message", "&cServer Restarting! We will be back up any minute!"); }
+		public static String KICK_MESSAGE() { return getString("main.kick_message", "&cServer Restarting! We will be back up any minute!"); }
 	}
 	
 	public static class REMINDER {
@@ -55,6 +55,7 @@ public class Config {
 		}
 		public static List<Integer> MINUTES() { return getIntegerList("reminder.minutes"); }
 		public static Integer SECONDS() { return getInteger("reminder.seconds", 5); }
+		public static Integer PAUSE_REMINDER() { return getInteger("reminder.pause_reminder", 10); }
 	}
 	
 	public static class GLOBAL_BROADCAST {
@@ -70,6 +71,7 @@ public class Config {
 				public static Boolean ALERT() { return getBoolean("global_broadcast.enabled.max_players.alert", true); }
 				public static Boolean PRE_SHUTDOWN() { return getBoolean("global_broadcast.enabled.max_players.pre_shutdown", true); }
 			}
+			public static Boolean SHUTDOWN() { return getBoolean("global_broadcast.enabled.shutdown", true); }
 		}
 		public static class MESSAGES {
 			public static List<String> MINUTES() { return getStringList("global_broadcast.messages.minutes"); }
@@ -83,6 +85,7 @@ public class Config {
 				public static List<String> ALERT() { return getStringList("global_broadcast.messages.max_players.alert"); }
 				public static List<String> PRE_SHUTDOWN() { return getStringList("global_broadcast.messages.max_players.pre_shutdown"); }
 			}
+			public static List<String> SHUTDOWN() { return getStringList("global_broadcast.messages.shutdown"); }
 		}
 	}
 	
@@ -94,6 +97,7 @@ public class Config {
 				public static Boolean PAUSE() { return getBoolean("private_messages.enabled.status.pause", true); }
 			}
 			public static Boolean CHANGE() { return getBoolean("private_messages.enabled.change", true); }
+			public static Boolean PAUSE_REMINDER() { return getBoolean("private_messages.enabled.pause_reminder", true); }
 		}
 		public static class MESSAGES {
 			public static List<String> TIME() { return getStringList("private_messages.messages.time"); }
@@ -102,6 +106,7 @@ public class Config {
 				public static List<String> PAUSE() { return getStringList("private_messages.messages.status.pause"); }
 			}
 			public static List<String> CHANGE() { return getStringList("private_messages.messages.change"); }
+			public static List<String> PAUSE_REMINDER() { return getStringList("private_messages.messages.pause_reminder"); }
 		}
 	}
 
@@ -123,13 +128,13 @@ public class Config {
 		public static class MESSAGES {
 			public static class MINUTES {
 				public static class TITLE {
-					public static String TEXT() { return getString("global_popups.messages.minutes.title.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.minutes.title.text", "&cServer Restarting In"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.minutes.title.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.minutes.title.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.minutes.title.fadeout", 20); }
 				}
 				public static class SUBTITLE {
-					public static String TEXT() { return getString("global_popups.messages.minutes.subtitle.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.minutes.subtitle.text", "&f%m &cMinutes!"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.minutes.subtitle.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.minutes.subtitle.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.minutes.subtitle.fadeout", 20); }
@@ -137,13 +142,13 @@ public class Config {
 			}
 			public static class SECONDS {
 				public static class TITLE {
-					public static String TEXT() { return getString("global_popups.messages.seconds.title.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.seconds.title.text", "&cServer Restarting In"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.seconds.title.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.seconds.title.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.seconds.title.fadeout", 20); }
 				}
 				public static class SUBTITLE {
-					public static String TEXT() { return getString("global_popups.messages.seconds.subtitle.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.seconds.subtitle.text", "&f%s &cSeconds!"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.seconds.subtitle.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.seconds.subtitle.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.seconds.subtitle.fadeout", 20); }
@@ -152,7 +157,7 @@ public class Config {
 			public static class STATUS {
 				public static class START {
 					public static class TITLE {
-						public static String TEXT() { return getString("global_popups.messages.status.start.title.text", ""); }
+						public static String TEXT() { return getString("global_popups.messages.status.start.title.text", "&cAutoRestart has started!"); }
 						public static Integer FADEIN() { return getInteger("global_popups.messages.status.start.title.fadein", 20); }
 						public static Integer STAY() { return getInteger("global_popups.messages.status.start.title.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("global_popups.messages.status.start.title.fadeout", 20); }
@@ -166,7 +171,7 @@ public class Config {
 				}
 				public static class PAUSE {
 					public static class TITLE {
-						public static String TEXT() { return getString("global_popups.messages.status.pause.title.text", ""); }
+						public static String TEXT() { return getString("global_popups.messages.status.pause.title.text", "&cAutoRestart has been paused!"); }
 						public static Integer FADEIN() { return getInteger("global_popups.messages.status.pause.title.fadein", 20); }
 						public static Integer STAY() { return getInteger("global_popups.messages.status.pause.title.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("global_popups.messages.status.pause.title.fadeout", 20); }
@@ -181,13 +186,13 @@ public class Config {
 			}
 			public static class CHANGE {
 				public static class TITLE {
-					public static String TEXT() { return getString("global_popups.messages.change.title.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.change.title.text", "&cServer Restarting In"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.change.title.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.change.title.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.change.title.fadeout", 20); }
 				}
 				public static class SUBTITLE {
-					public static String TEXT() { return getString("global_popups.messages.change.subtitle.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.change.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.change.subtitle.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.change.subtitle.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.change.subtitle.fadeout", 20); }
@@ -196,13 +201,13 @@ public class Config {
 			public static class MAX_PLAYERS {
 				public static class ALERT {
 					public static class TITLE {
-						public static String TEXT() { return getString("global_popups.messages.max_players.alert.title.text", ""); }
+						public static String TEXT() { return getString("global_popups.messages.max_players.alert.title.text", "&bToo many players online for restart."); }
 						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.alert.title.fadein", 20); }
 						public static Integer STAY() { return getInteger("global_popups.messages.max_players.alert.title.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.alert.title.fadeout", 20); }
 					}
 					public static class SUBTITLE {
-						public static String TEXT() { return getString("global_popups.messages.max_players.alert.subtitle.text", ""); }
+						public static String TEXT() { return getString("global_popups.messages.max_players.alert.subtitle.text", "Max &f%a&b amount of players allowed for a restart."); }
 						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.alert.subtitle.fadein", 20); }
 						public static Integer STAY() { return getInteger("global_popups.messages.max_players.alert.subtitle.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.alert.subtitle.fadeout", 20); }
@@ -210,7 +215,7 @@ public class Config {
 				}
 				public static class PRE_SHUTDOWN {
 					public static class TITLE {
-						public static String TEXT() { return getString("global_popups.messages.max_players.pre_shutdown.title.text", ""); }
+						public static String TEXT() { return getString("global_popups.messages.max_players.pre_shutdown.title.text", "&aServer now restarting in &f%d&a seconds!"); }
 						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.pre_shutdown.title.fadein", 20); }
 						public static Integer STAY() { return getInteger("global_popups.messages.max_players.pre_shutdown.title.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.pre_shutdown.title.fadeout", 20); }
@@ -225,13 +230,13 @@ public class Config {
 			}
 			public static class SHUTDOWN {
 				public static class TITLE {
-					public static String TEXT() { return getString("global_popups.messages.shutdown.title.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.shutdown.title.text", "&cServer is now"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.shutdown.title.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.shutdown.title.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.shutdown.title.fadeout", 20); }
 				}
 				public static class SUBTITLE {
-					public static String TEXT() { return getString("global_popups.messages.shutdown.subtitle.text", ""); }
+					public static String TEXT() { return getString("global_popups.messages.shutdown.subtitle.text", "&cRestarting!"); }
 					public static Integer FADEIN() { return getInteger("global_popups.messages.shutdown.subtitle.fadein", 20); }
 					public static Integer STAY() { return getInteger("global_popups.messages.shutdown.subtitle.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("global_popups.messages.shutdown.subtitle.fadeout", 20); }
@@ -248,17 +253,18 @@ public class Config {
 				public static Boolean PAUSE() { return getBoolean("private_popups.enabled.status.pause", true); }
 			}
 			public static Boolean CHANGE() { return getBoolean("private_popups.enabled.change", true); }
+			public static Boolean PAUSE_REMINDER() { return getBoolean("private_popups.enabled.pause_reminder", true); }
 		}
 		public static class MESSAGES {
 			public static class TIME {
 				public static class TITLE {
-					public static String TEXT() { return getString("private_popups.messages.time.title.text", ""); }
+					public static String TEXT() { return getString("private_popups.messages.time.title.text", "&cServer Restarting In"); }
 					public static Integer FADEIN() { return getInteger("private_popups.messages.time.title.fadein", 20); }
 					public static Integer STAY() { return getInteger("private_popups.messages.time.title.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("private_popups.messages.time.title.fadeout", 20); }
 				}
 				public static class SUBTITLE {
-					public static String TEXT() { return getString("private_popups.messages.time.subtitle.text", ""); }
+					public static String TEXT() { return getString("private_popups.messages.time.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!"); }
 					public static Integer FADEIN() { return getInteger("private_popups.messages.time.subtitle.fadein", 20); }
 					public static Integer STAY() { return getInteger("private_popups.messages.time.subtitle.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("private_popups.messages.time.subtitle.fadeout", 20); }
@@ -267,7 +273,7 @@ public class Config {
 			public static class STATUS {
 				public static class START {
 					public static class TITLE {
-						public static String TEXT() { return getString("private_popups.messages.status.start.title.text", ""); }
+						public static String TEXT() { return getString("private_popups.messages.status.start.title.text", "&cYou started AutoRestart back up!"); }
 						public static Integer FADEIN() { return getInteger("private_popups.messages.status.start.title.fadein", 20); }
 						public static Integer STAY() { return getInteger("private_popups.messages.status.start.title.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("private_popups.messages.status.start.title.fadeout", 20); }
@@ -281,7 +287,7 @@ public class Config {
 				}
 				public static class PAUSE {
 					public static class TITLE {
-						public static String TEXT() { return getString("private_popups.messages.status.pause.title.text", ""); }
+						public static String TEXT() { return getString("private_popups.messages.status.pause.title.text", "&cYou have paused AutoRestart!"); }
 						public static Integer FADEIN() { return getInteger("private_popups.messages.status.pause.title.fadein", 20); }
 						public static Integer STAY() { return getInteger("private_popups.messages.status.pause.title.stay", 40); }
 						public static Integer FADEOUT() { return getInteger("private_popups.messages.status.pause.title.fadeout", 20); }
@@ -296,19 +302,39 @@ public class Config {
 			}
 			public static class CHANGE {
 				public static class TITLE {
-					public static String TEXT() { return getString("private_popups.messages.change.title.text", ""); }
+					public static String TEXT() { return getString("private_popups.messages.change.title.text", "&cYou Changed Restart Time to"); }
 					public static Integer FADEIN() { return getInteger("private_popups.messages.change.title.fadein", 20); }
 					public static Integer STAY() { return getInteger("private_popups.messages.change.title.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("private_popups.messages.change.title.fadeout", 20); }
 				}
 				public static class SUBTITLE {
-					public static String TEXT() { return getString("private_popups.messages.change.subtitle.text", ""); }
+					public static String TEXT() { return getString("private_popups.messages.change.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!"); }
 					public static Integer FADEIN() { return getInteger("private_popups.messages.change.subtitle.fadein", 20); }
 					public static Integer STAY() { return getInteger("private_popups.messages.change.subtitle.stay", 40); }
 					public static Integer FADEOUT() { return getInteger("private_popups.messages.change.subtitle.fadeout", 20); }
 				}
 			}
+			public static class PAUSE_REMINDER {
+				public static class TITLE {
+					public static String TEXT() { return getString("private_popups.messages.pause_reminder.title.text", "&cDont forget that"); }
+					public static Integer FADEIN() { return getInteger("private_popups.messages.pause_reminder.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("private_popups.messages.pause_reminder.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("private_popups.messages.pause_reminder.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("private_popups.messages.pause_reminder.subtitle.text", "&cAutoRestart timer is still paused!"); }
+					public static Integer FADEIN() { return getInteger("private_popups.messages.pause_reminder.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("private_popups.messages.pause_reminder.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("private_popups.messages.pause_reminder.subtitle.fadeout", 20); }
+				}
+			}
 		}
+	}
+	
+	public static class COMMANDS {
+		public static Boolean ENABLED() { return getBoolean("commands.enabled", false); }
+		public static Integer SECONDS() { return getInteger("commands.seconds", 5); }
+		public static List<String> LIST() { return getStringList("commands.list"); }
 	}
 	
 	public static class MAX_PLAYERS {

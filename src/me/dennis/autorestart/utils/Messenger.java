@@ -16,12 +16,19 @@ public class Messenger {
 		String prefix = Config.MAIN.PREFIX();
 		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + msg));
 	}
+
+
+	private static void broadcastMessage(String msg, String perm) {
+		String prefix = Config.MAIN.PREFIX();
+		Bukkit.broadcast(ChatColor.translateAlternateColorCodes('&', prefix + msg), perm);
+	}
 	
 	private static void sendMessage(CommandSender sender, String msg) {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
 	}
 
 	private static void sendTitle(Player player, Class<?> c, Method formater) {
+		TitleAPI.sendTitle(player, Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), "", "");
 		try {
 			Class<?> clezz = Class.forName(c.getName() + "$TITLE");
 			Integer fadeIn = Integer.parseInt(clezz.getMethod("FADEIN").invoke(null).toString());
@@ -83,8 +90,9 @@ public class Messenger {
 				if (player.equals(playerSender) && privateMessage) {
 					continue;
 				}
+				
 				for (String msg : globalMsgLines) {
-					sendMessage(player, msg);
+					sendMessage(player, Config.MAIN.PREFIX() + msg);
 				}
 			}
 		}
@@ -398,6 +406,73 @@ public class Messenger {
 		// Send to everyone
 		for (String msg : msgLines) {
 			broadcastMessage(msg.replaceAll("%d", delay));
+		}
+	}
+	
+	public static void broadcastPauseReminder() {
+		
+		List<String> msgLines = Config.PRIVATE_MESSAGES.MESSAGES.PAUSE_REMINDER();
+		
+		// Send to console only
+		for (String msg : msgLines) {
+			Console.consoleSendMessage(msg);
+		}
+		
+		// Check if pop ups are enabled
+		if (Config.PRIVATE_POPUPS.ENABLED.PAUSE_REMINDER()) {
+			
+			// send pop ups
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				try {
+					sendTitle(player, Config.PRIVATE_POPUPS.MESSAGES.PAUSE_REMINDER.class, Messenger.class.getMethod("formatSkip", String.class));
+				} catch (Exception e) {
+					Console.catchError(e, "Messenger.broadcastPauseReminder():SendPopUps");
+				}
+			}
+			
+			if (!Config.PRIVATE_MESSAGES.ENABLED.PAUSE_REMINDER()) {
+				
+				// Disable for players
+				return;
+			}
+		}
+		
+		// Send to everyone
+		for (String msg : msgLines) {
+			broadcastMessage(msg, "autorestart.start");
+		}
+	}
+	
+	public static void broadcastShutdown() {
+		List<String> msgLines = Config.GLOBAL_BROADCAST.MESSAGES.SHUTDOWN();
+		
+		// Check if pop ups are enabled
+		if (Config.GLOBAL_POPUPS.ENABLED.SHUTDOWN()) {
+			
+			// send pop ups
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				try {
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SHUTDOWN.class, Messenger.class.getMethod("formatSkip", String.class));
+				} catch (Exception e) {
+					Console.catchError(e, "Messenger.broadcastShutdown():SendPopUps");
+				}
+			}
+			
+			if (!Config.GLOBAL_BROADCAST.ENABLED.SHUTDOWN()) {
+				
+				// Send to console only
+				for (String msg : msgLines) {
+					Console.consoleSendMessage(msg);
+				}
+				
+				// Disable for players
+				return;
+			}
+		}
+		
+		// Send to everyone
+		for (String msg : msgLines) {
+			broadcastMessage(msg);
 		}
 	}
 	

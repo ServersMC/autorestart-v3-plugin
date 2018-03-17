@@ -1,5 +1,8 @@
 package me.dennis.autorestart.core;
 
+import java.io.File;
+import java.util.Calendar;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,6 +35,20 @@ public class AutoRestart extends JavaPlugin {
 
 			// Configuration file
 			Config.setConfig(getConfig());
+			Integer configVersion = getConfig().getDefaults().getInt("version");
+			Integer configVersionLoaded = Config.VERSION;
+			if (configVersion != configVersionLoaded) {
+				Calendar cal = Calendar.getInstance();
+				Console.warn("The config has updated since the last update!");
+				File config = new File(getDataFolder(), "config.yml");
+				File rename = new File(getDataFolder(), "config (" + cal.getTime().toString().replaceAll(":", "_") + ").yml");
+				if (rename.exists()) {
+					rename.delete();
+				}
+				config.renameTo(rename);
+				saveResource(config.getName(), true);
+				Console.warn("Config file has been backed up to " + rename.getName() + "!");
+			}
 
 			// Command setup
 			new CmdAutoRestart();

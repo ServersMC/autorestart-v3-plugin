@@ -14,6 +14,7 @@ import me.dennis.autorestart.utils.ShutdownTimeout;
 public class TimerThread implements Runnable {
 
 	public Boolean PAUSED = false;
+	public Integer PAUSED_TIMER = 0;
 	public Integer TIME;
 	
 	@Override
@@ -33,8 +34,14 @@ public class TimerThread implements Runnable {
 			
 			// Check if timer is paused
 			if (PAUSED) {
+				PAUSED_TIMER++;
+				if (PAUSED_TIMER == Config.REMINDER.PAUSE_REMINDER() * 60) {
+					Messenger.broadcastPauseReminder();
+					PAUSED_TIMER = 0;
+				}
 				continue;
 			}
+			PAUSED_TIMER = 0;
 			
 			// Minutes Reminder
 			if (Config.REMINDER.ENABLED.MINUTES()) {
@@ -54,9 +61,21 @@ public class TimerThread implements Runnable {
 				}
 			}
 			
+			// Command Execute
+			if (Config.COMMANDS.ENABLED()) {
+				if (TIME == Config.COMMANDS.SECONDS()) {
+					for (String cmd : Config.COMMANDS.LIST()) {
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+					}
+				}
+			}
+			
 			// Timer decrement
 			TIME--;
 		}
+		
+		// Global broadcast chat / popup handler
+		Messenger.broadcastShutdown();
 		
 		// Player kick / restart message
 		for (int i = 0; i < Bukkit.getOnlinePlayers().size(); i++) {
@@ -69,7 +88,7 @@ public class TimerThread implements Runnable {
 				public void run() {
 					
 					// Player kick / restart message
-					player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Config.MAIN.RESTART_MESSAGE()));
+					player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Config.MAIN.KICK_MESSAGE()));
 					
 				}
 				
