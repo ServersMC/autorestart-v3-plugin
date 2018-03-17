@@ -104,6 +104,212 @@ public class Config {
 			public static List<String> CHANGE() { return getStringList("private_messages.messages.change"); }
 		}
 	}
+
+	public static class GLOBAL_POPUPS {
+		public static class ENABLED {
+			public static Boolean MINUTES() { return getBoolean("global_popups.enabled.minutes", true); }
+			public static Boolean SECONDS() { return getBoolean("global_popups.enabled.seconds", true); }
+			public static class STATUS {
+				public static Boolean START() { return getBoolean("global_popups.enabled.status.start", true); }
+				public static Boolean PAUSE() { return getBoolean("global_popups.enabled.status.pause", true); }
+			}
+			public static Boolean CHANGE() { return getBoolean("global_popups.enabled.change", true); }
+			public static class MAX_PLAYERS {
+				public static Boolean ALERT() { return getBoolean("global_popups.enabled.max_players.alert", true); }
+				public static Boolean PRE_SHUTDOWN() { return getBoolean("global_popups.enabled.max_players.pre_shutdown", true); }
+			}
+			public static Boolean SHUTDOWN() { return getBoolean("global_popups.enabled.shutdown", true); }
+		}
+		public static class MESSAGES {
+			public static class MINUTES {
+				public static class TITLE {
+					public static String TEXT() { return getString("global_popups.messages.minutes.title.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.minutes.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.minutes.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.minutes.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("global_popups.messages.minutes.subtitle.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.minutes.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.minutes.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.minutes.subtitle.fadeout", 20); }
+				}
+			}
+			public static class SECONDS {
+				public static class TITLE {
+					public static String TEXT() { return getString("global_popups.messages.seconds.title.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.seconds.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.seconds.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.seconds.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("global_popups.messages.seconds.subtitle.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.seconds.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.seconds.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.seconds.subtitle.fadeout", 20); }
+				}
+			}
+			public static class STATUS {
+				public static class START {
+					public static class TITLE {
+						public static String TEXT() { return getString("global_popups.messages.status.start.title.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.status.start.title.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.status.start.title.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.status.start.title.fadeout", 20); }
+					}
+					public static class SUBTITLE {
+						public static String TEXT() { return getString("global_popups.messages.status.start.subtitle.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.status.start.subtitle.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.status.start.subtitle.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.status.start.subtitle.fadeout", 20); }
+					}
+				}
+				public static class PAUSE {
+					public static class TITLE {
+						public static String TEXT() { return getString("global_popups.messages.status.pause.title.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.status.pause.title.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.status.pause.title.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.status.pause.title.fadeout", 20); }
+					}
+					public static class SUBTITLE {
+						public static String TEXT() { return getString("global_popups.messages.status.pause.subtitle.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.status.pause.subtitle.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.status.pause.subtitle.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.status.pause.subtitle.fadeout", 20); }
+					}
+				}
+			}
+			public static class CHANGE {
+				public static class TITLE {
+					public static String TEXT() { return getString("global_popups.messages.change.title.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.change.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.change.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.change.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("global_popups.messages.change.subtitle.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.change.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.change.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.change.subtitle.fadeout", 20); }
+				}
+			}
+			public static class MAX_PLAYERS {
+				public static class ALERT {
+					public static class TITLE {
+						public static String TEXT() { return getString("global_popups.messages.max_players.alert.title.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.alert.title.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.max_players.alert.title.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.alert.title.fadeout", 20); }
+					}
+					public static class SUBTITLE {
+						public static String TEXT() { return getString("global_popups.messages.max_players.alert.subtitle.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.alert.subtitle.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.max_players.alert.subtitle.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.alert.subtitle.fadeout", 20); }
+					}
+				}
+				public static class PRE_SHUTDOWN {
+					public static class TITLE {
+						public static String TEXT() { return getString("global_popups.messages.max_players.pre_shutdown.title.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.pre_shutdown.title.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.max_players.pre_shutdown.title.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.pre_shutdown.title.fadeout", 20); }
+					}
+					public static class SUBTITLE {
+						public static String TEXT() { return getString("global_popups.messages.max_players.pre_shutdown.subtitle.text", ""); }
+						public static Integer FADEIN() { return getInteger("global_popups.messages.max_players.pre_shutdown.subtitle.fadein", 20); }
+						public static Integer STAY() { return getInteger("global_popups.messages.max_players.pre_shutdown.subtitle.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("global_popups.messages.max_players.pre_shutdown.subtitle.fadeout", 20); }
+					}
+				}
+			}
+			public static class SHUTDOWN {
+				public static class TITLE {
+					public static String TEXT() { return getString("global_popups.messages.shutdown.title.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.shutdown.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.shutdown.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.shutdown.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("global_popups.messages.shutdown.subtitle.text", ""); }
+					public static Integer FADEIN() { return getInteger("global_popups.messages.shutdown.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("global_popups.messages.shutdown.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("global_popups.messages.shutdown.subtitle.fadeout", 20); }
+				}
+			}
+		}
+	}
+	
+	public static class PRIVATE_POPUPS {
+		public static class ENABLED {
+			public static Boolean TIME() { return getBoolean("private_popups.enabled.time", true); }
+			public static class STATUS {
+				public static Boolean START() { return getBoolean("private_popups.enabled.status.start", true); }
+				public static Boolean PAUSE() { return getBoolean("private_popups.enabled.status.pause", true); }
+			}
+			public static Boolean CHANGE() { return getBoolean("private_popups.enabled.change", true); }
+		}
+		public static class MESSAGES {
+			public static class TIME {
+				public static class TITLE {
+					public static String TEXT() { return getString("private_popups.messages.time.title.text", ""); }
+					public static Integer FADEIN() { return getInteger("private_popups.messages.time.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("private_popups.messages.time.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("private_popups.messages.time.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("private_popups.messages.time.subtitle.text", ""); }
+					public static Integer FADEIN() { return getInteger("private_popups.messages.time.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("private_popups.messages.time.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("private_popups.messages.time.subtitle.fadeout", 20); }
+				}
+			}
+			public static class STATUS {
+				public static class START {
+					public static class TITLE {
+						public static String TEXT() { return getString("private_popups.messages.status.start.title.text", ""); }
+						public static Integer FADEIN() { return getInteger("private_popups.messages.status.start.title.fadein", 20); }
+						public static Integer STAY() { return getInteger("private_popups.messages.status.start.title.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("private_popups.messages.status.start.title.fadeout", 20); }
+					}
+					public static class SUBTITLE {
+						public static String TEXT() { return getString("private_popups.messages.status.start.subtitle.text", ""); }
+						public static Integer FADEIN() { return getInteger("private_popups.messages.status.start.subtitle.fadein", 20); }
+						public static Integer STAY() { return getInteger("private_popups.messages.status.start.subtitle.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("private_popups.messages.status.start.subtitle.fadeout", 20); }
+					}
+				}
+				public static class PAUSE {
+					public static class TITLE {
+						public static String TEXT() { return getString("private_popups.messages.status.pause.title.text", ""); }
+						public static Integer FADEIN() { return getInteger("private_popups.messages.status.pause.title.fadein", 20); }
+						public static Integer STAY() { return getInteger("private_popups.messages.status.pause.title.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("private_popups.messages.status.pause.title.fadeout", 20); }
+					}
+					public static class SUBTITLE {
+						public static String TEXT() { return getString("private_popups.messages.status.pause.subtitle.text", ""); }
+						public static Integer FADEIN() { return getInteger("private_popups.messages.status.pause.subtitle.fadein", 20); }
+						public static Integer STAY() { return getInteger("private_popups.messages.status.pause.subtitle.stay", 40); }
+						public static Integer FADEOUT() { return getInteger("private_popups.messages.status.pause.subtitle.fadeout", 20); }
+					}
+				}
+			}
+			public static class CHANGE {
+				public static class TITLE {
+					public static String TEXT() { return getString("private_popups.messages.change.title.text", ""); }
+					public static Integer FADEIN() { return getInteger("private_popups.messages.change.title.fadein", 20); }
+					public static Integer STAY() { return getInteger("private_popups.messages.change.title.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("private_popups.messages.change.title.fadeout", 20); }
+				}
+				public static class SUBTITLE {
+					public static String TEXT() { return getString("private_popups.messages.change.subtitle.text", ""); }
+					public static Integer FADEIN() { return getInteger("private_popups.messages.change.subtitle.fadein", 20); }
+					public static Integer STAY() { return getInteger("private_popups.messages.change.subtitle.stay", 40); }
+					public static Integer FADEOUT() { return getInteger("private_popups.messages.change.subtitle.fadeout", 20); }
+				}
+			}
+		}
+	}
 	
 	public static class MAX_PLAYERS {
 		public static Boolean ENABLED() { return getBoolean("max_players.enabled", true); }

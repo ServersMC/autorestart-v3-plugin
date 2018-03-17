@@ -18,7 +18,7 @@ public class TimerThread implements Runnable {
 	
 	@Override
 	public void run() {
-		while (PAUSED) {
+		while (true) {
 			// Timer freeze frame
 			try {
 				Thread.sleep(1000);

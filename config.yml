@@ -99,16 +99,18 @@ global_broadcast:
 ## These are private messages sent to the player when the event is triggered. If the same task is enabled in
 ##  "global_broadcast", this player will not see the global message, but his own.
 ##  Private messages do not include the prefix in "main.prefix" config.
-player_messages:
+private_messages:
     ## Enable or Disable the chat message
     enabled:
         ## Show the message when type /autore time
         time: true
-        ## Show the message when typed /autore start or /autore pause [Duplicated in Global_Messages]
+        ## Show the message when typed /autore start or /autore pause
+        ## [Duplicated in Global_Messages]
         status:
             start: true
             pause: true
-        ## Show the broadcast when the server time has been changed! [Duplicated in Global_Messages]
+        ## Show the broadcast when the server time has been changed!
+        ## [Duplicated in Global_Messages]
         change: true
     ## Messages have multi line support!
     messages:
@@ -128,7 +130,6 @@ player_messages:
 ## To understand ticks. 1 second is relevent to 20 ticks! So a second and a half (1.5s) is 30 ticks!
 ## Fadein, stay, fadeout are the 3 arguments. You can edit how long it takes to fadein, fadeout etc.
 ## You can also put the fade numbers to 0, and then the popup's will be instant!
-## Also you can edit the delay, to make the title popup, and then the subtitle half a second later.
 ## Get creative!
 ## Global Popups duplicate rules are applied just like global Messages, same situation with private popups
 ## and private messages.
@@ -140,12 +141,12 @@ global_popups:
         ## Show the pop ups on the last seconds of a server restart!
         seconds: true
         ## Show the pop ups when type /autore time
-        time: true
-        ## Show the pop ups when typed /autore start or /autore pause
+        ## [Duplicated in Global_Messages]
         status:
             start: true
             pause: true
         ## Show the pop ups when the server time has been changed!
+        ## [Duplicated in Global_Messages]
         change: true
         ## Show the Maxplayers pop ups
         max_players:
@@ -160,39 +161,33 @@ global_popups:
         minutes: ## %m - minutes
             title:
                 text: '&cServer Restarting In'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
             subtitle:
                 text: '&f%m &cMinutes!'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
         seconds: ## %s - seconds
             title:
                 text: '&cServer Restarting In'
-                delay: 0
                 fadein: 5
                 stay: 20
                 fadeout: 5
             subtitle:
                 text: '&f%s &cSeconds!'
-                delay: 0
                 fadein: 5
                 stay: 10
                 fadeout: 5
         time: ## %h - hours, %m - minutes, %s - seconds
             title:
                 text: '&cServer Restarting In'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
             subtitle:
                 text: '&f%h&cH &f%m&cM &f%s&cS!'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
@@ -200,39 +195,33 @@ global_popups:
             start:
                 title:
                     text: '&cAutoRestart has started!'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
                 subtitle:
                     text: ''
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
             pause:
                 title:
                     text: '&cAutoRestart has been paused!'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
                 subtitle:
                     text: ''
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
         change: ## %h - hours, %m - minutes, %s - seconds
             title:
                 text: '&cServer Restarting In'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
             subtitle:
                 text: '&f%h&cH &f%m&cM &f%s&cS!'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
@@ -240,103 +229,60 @@ global_popups:
             alert: ## %a - amount
                 title:
                     text: '&bToo many players online for restart.'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
                 subtitle:
                     text: 'Max &f%a&b amount of players allowed for a restart.'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
             pre_shutdown: ## %d - delay
                 title:
                     text: '&aServer now restarting in &f%d&a seconds!'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
                 subtitle:
                     text: ''
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
         shutdown:
             title:
                 text: '&cServer is now'
-                delay: 0
                 fadein: 20
                 stay: 80
                 fadeout: 20
             subtitle:
                 text: '&cRestarting!'
-                delay: 0
                 fadein: 20
                 stay: 80
                 fadeout: 20
+## Private popups
 private_popups:
     ## Enable or Disable the Popups!
     enabled:
-        ## Show the pop ups on the minute reminders!
-        minutes: true
-        ## Show the pop ups on the last seconds of a server restart!
-        seconds: true
         ## Show the pop ups when type /autore time
         time: true
         ## Show the pop ups when typed /autore start or /autore pause
+        ## [Duplicated in Global_Messages]
         status:
             start: true
             pause: true
         ## Show the pop ups when the server time has been changed!
+        ## [Duplicated in Global_Messages]
         change: true
-        ## Show the Maxplayers pop ups
-        max_players:
-            ## The pop up broadcasts when too many players are online on restart!
-            alert: true
-            ## This pop up appears when the amount of players requirement is met!
-            pre_shutdown: true
-        ## Shows the popup before restart
-        shutdown: true
     ## This section is for the customization of the popup messages!
     messages:
-        minutes: ## %m - minutes
-            title:
-                text: '&cServer Restarting In'
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                text: '&f%m &cMinutes!'
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-        seconds: ## %s - seconds
-            title:
-                text: '&cServer Restarting In'
-                delay: 0
-                fadein: 5
-                stay: 20
-                fadeout: 5
-            subtitle:
-                text: '&f%s &cSeconds!'
-                delay: 0
-                fadein: 5
-                stay: 10
-                fadeout: 5
         time: ## %h - hours, %m - minutes, %s - seconds
             title:
                 text: '&cServer Restarting In'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
             subtitle:
                 text: '&f%h&cH &f%m&cM &f%s&cS!'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
@@ -344,81 +290,35 @@ private_popups:
             start:
                 title:
                     text: '&cAutoRestart has started!'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
                 subtitle:
                     text: ''
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
             pause:
                 title:
                     text: '&cAutoRestart has been paused!'
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
                 subtitle:
                     text: ''
-                    delay: 0
                     fadein: 20
                     stay: 40
                     fadeout: 20
         change: ## %h - hours, %m - minutes, %s - seconds
             title:
                 text: '&cServer Restarting In'
-                delay: 0
                 fadein: 20
                 stay: 40
                 fadeout: 20
             subtitle:
                 text: '&f%h&cH &f%m&cM &f%s&cS!'
-                delay: 0
                 fadein: 20
                 stay: 40
-                fadeout: 20
-        max_players:
-            alert: ## %a - amount
-                title:
-                    text: '&bToo many players online for restart.'
-                    delay: 0
-                    fadein: 20
-                    stay: 40
-                    fadeout: 20
-                subtitle:
-                    text: 'Max &f%a&b amount of players allowed for a restart.'
-                    delay: 0
-                    fadein: 20
-                    stay: 40
-                    fadeout: 20
-            pre_shutdown: ## %d - delay
-                title:
-                    text: '&aServer now restarting in &f%d&a seconds!'
-                    delay: 0
-                    fadein: 20
-                    stay: 40
-                    fadeout: 20
-                subtitle:
-                    text: ''
-                    delay: 0
-                    fadein: 20
-                    stay: 40
-                    fadeout: 20
-        shutdown:
-            title:
-                text: '&cServer is now'
-                delay: 0
-                fadein: 20
-                stay: 80
-                fadeout: 20
-            subtitle:
-                text: '&cRestarting!'
-                delay: 0
-                fadein: 20
-                stay: 80
                 fadeout: 20
 
 ## This will stop your server from shutting down if you have more than X amount of players configured in "amount".
