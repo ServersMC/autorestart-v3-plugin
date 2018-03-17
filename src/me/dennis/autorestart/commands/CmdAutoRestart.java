@@ -17,7 +17,10 @@ public class CmdAutoRestart implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		// Default command text header
 		sender.sendMessage(ChatColor.RED + "AutoRestart " + ChatColor.GRAY + "- v" + AutoRestart.VERSION);
+		
+		// Check if argument length requirement meet
 		if (args.length == 0) {
 			sender.sendMessage(ChatColor.RED + "Not enough arguments. Try: /autore help");
 		}
@@ -46,6 +49,7 @@ public class CmdAutoRestart implements CommandExecutor {
 						}
 					}
 
+					// Executes sub command
 					autoSubCmd.execute(sender, (String[]) argsList.toArray(new String[argsList.size()]));
 					return true;
 				}
