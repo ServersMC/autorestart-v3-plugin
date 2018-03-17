@@ -61,7 +61,7 @@ public class CmdHelp extends AutoCommand {
 				try {
 					
 					// Setup Buffered Reader
-					InputStreamReader stream = new InputStreamReader(AutoRestart.PLUGIN.getResource("/help_dictionary/" + cmdFind.getLabel().toLowerCase() + ".dict"));
+					InputStreamReader stream = new InputStreamReader(AutoRestart.PLUGIN.getResource("help_dictionary/" + cmdFind.getLabel().toLowerCase() + ".dict"));
 					BufferedReader reader = new BufferedReader(stream);
 					
 					// Output dictionary

@@ -27,6 +27,10 @@ public class CmdIn extends AutoCommand {
 			try {
 				// Split argument
 				String[] vars = arg.split(":");
+				if (vars.length != 2) {
+					sender.sendMessage(RED + "Please follow format! Try: /autore help in");
+					return;
+				}
 				int number = Integer.parseInt(vars[0]);
 				String type = vars[1].toUpperCase();
 				
