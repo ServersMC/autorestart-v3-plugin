@@ -1,5 +1,7 @@
 package me.dennis.autorestart.core;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -15,8 +17,27 @@ public class TimerThread implements Runnable {
 	@Override
 	public void run() {
 		while (RUNNING) {
+			// Timer end break
 			if (TIME == 0) {
 				break;
+			}
+			
+			// Minutes Reminder
+			if (Config.REMINDER.ENABLED.MINUTES()) {
+				List<Integer> minuteReminderList = Config.REMINDER.MINUTES();
+				for (Integer minuteReminder : minuteReminderList) {
+					if (TIME == minuteReminder * 60) {
+						// TODO Broadcast Reminder
+					}
+				}
+			}
+			
+			// Seconds Reminder
+			if (Config.REMINDER.ENABLED.SECONDS()) {
+				Integer secondReminder = Config.REMINDER.SECONDS();
+				if (TIME <= secondReminder) {
+					// TODO Broadcast Reminder
+				}
 			}
 			
 			// Timer decrement
@@ -28,26 +49,51 @@ public class TimerThread implements Runnable {
 			}
 		}
 		
+		// Player kick / restart message
 		for (int i = 0; i < Bukkit.getOnlinePlayers().size(); i++) {
 			final Player player = (Player) Bukkit.getOnlinePlayers().toArray()[0];
 			
 			// Bukkit Scheduler to avoid asynchronous error
 			Bukkit.getScheduler().scheduleSyncDelayedTask(AutoRestart.PLUGIN, new Runnable() {
+				
 				@Override
 				public void run() {
 					
-					// Player kick shutdown message
+					// Player kick / restart message
 					player.kickPlayer("Shutdown message!");
 					
 				}
+				
 			});
 			
+		}
+		
+		// Check if max_players is enabled
+		if (Config.MAX_PLAYERS.ENABLED()) {
+			// Check if player count is over configured amount
+			if (Bukkit.getOnlinePlayers().size() >= Config.MAX_PLAYERS.AMOUNT()) {
+				// TODO Broadcast alert
+
+				// Start Shutdown wait
+				while (true) {
+					if (Bukkit.getOnlinePlayers().size() < Config.MAX_PLAYERS.AMOUNT()) {
+						break;
+					}
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						Console.catchError(e, "ShutdownTimeout.run()");
+					}
+				}
+				
+				// TODO Broadcast pre shutdown message
+			}
 		}
 		
 		// Timeout runnable if error on kick
 		new Thread(new ShutdownTimeout()).start();
 		
-		// Wait until players are successfully kicked, unless timeout is called
+		// Wait until players are successfully kicked, unless timeout is finished
 		while (!ShutdownTimeout.timeout) {
 			if (Bukkit.getOnlinePlayers().size() == 0) {
 				break;

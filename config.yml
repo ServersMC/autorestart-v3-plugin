@@ -1,11 +1,46 @@
 ## Main configuration values
 main:
+    ## restart modes availiable 'interval', and 'timestamp'
     restart_mode: 'interval'
+    ## restart mode specific settings
     modes:
         ## Interval in Hours
         interval: 3.0
         ## Set the timestamp in 24 hour time format HH:MM
         timestamp: '6:00'
+
+## Reminders will popup in the specified times to let players know when is the next restart
+reminder:
+    ## Enables or Disables restart reminder
+    enabled:
+        minutes: true
+        seconds: true
+    ## minutes before restart
+    minutes:
+        - 15
+        - 10
+        - 5
+        - 1
+    ## AutoRestart will countdown the seconds to restart starting at the entered value
+    seconds: 5
+    
+## This will stop your server from shutting down if you have more than X amount of players configured in "amount".
+max_players:
+    ## Enable or Disable this feature
+    enabled: false
+    ## The max amount of players allow for a restart. If you set this to 10, and your server has 11 people online
+    ## your server will not shutdown until there is LESS THAN 10 players.
+    amount: 10
+    ## The delay for the server to restart once player count as been met. In seconds!
+    delay: 10
+    ## Message settings
+    messages:
+        ## The message broadcasted when too many players are online on restart!
+        ## %a - amount
+        alert: '&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!'
+        ## This message appears when the amount of players requirement is met!
+        ## %d - delay
+        pre_shutdown: '&aServer now restarting in &f%d&a seconds!'
 
 ## DO NOT EDIT VERSION NUMBER!
 version: 0
