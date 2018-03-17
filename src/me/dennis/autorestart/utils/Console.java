@@ -16,6 +16,10 @@ public class Console {
     public static void err(String s) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] " + s);
     }
+    
+    public static void consoleSendMessage(String s) {
+        Bukkit.getConsoleSender().sendMessage(s);
+    }
 
 	public static void catchError(Exception e, String loc) {
 		// Error exception catch

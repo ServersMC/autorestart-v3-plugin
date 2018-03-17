@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import me.dennis.autorestart.commands.autore.*;
 import me.dennis.autorestart.core.AutoRestart;
 import me.dennis.autorestart.types.AutoCommand;
+import me.dennis.autorestart.utils.Console;
 
 public class CmdAutoRestart implements CommandExecutor {
 
@@ -45,6 +46,7 @@ public class CmdAutoRestart implements CommandExecutor {
 							
 							// Not enough permissions error
 							sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+							Console.consoleSendMessage(" Does not have permission");
 							return true;
 						}
 					}
