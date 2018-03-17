@@ -52,7 +52,11 @@ public class CmdAutoRestart implements CommandExecutor {
 					}
 
 					// Executes sub command
-					autoSubCmd.execute(sender, (String[]) argsList.toArray(new String[argsList.size()]));
+					try {
+						autoSubCmd.execute(sender, (String[]) argsList.toArray(new String[argsList.size()]));
+					} catch(Exception e) {
+						Console.catchError(e, "CmdAutoRestart.onCommand():" + autoSubCmd.getLabel());
+					}
 					return true;
 				}
 			}
