@@ -1,7 +1,11 @@
 package me.dennis.autorestart.core;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
+import me.dennis.autorestart.utils.ShutdownTimeout;
 
 public class TimerThread implements Runnable {
 
@@ -11,20 +15,48 @@ public class TimerThread implements Runnable {
 	@Override
 	public void run() {
 		while (RUNNING) {
+			if (TIME == 0) {
+				break;
+			}
 			
 			// Timer decrement
 			TIME--;
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				
-				// Error exception catch
-				Console.err("There was an error in the TimerThread class. If this is common, please PM error to ServersMC via PasteBin, or quickly send bug with /autore senderror");
-				e.printStackTrace();
-				Console.err("End of error");
-				
+				Console.catchError(e, "TimerThread.run()");
 			}
 		}
+		
+		for (int i = 0; i < Bukkit.getOnlinePlayers().size(); i++) {
+			final Player player = (Player) Bukkit.getOnlinePlayers().toArray()[0];
+			
+			// Bukkit Scheduler to avoid asynchronous error
+			Bukkit.getScheduler().scheduleSyncDelayedTask(AutoRestart.PLUGIN, new Runnable() {
+				@Override
+				public void run() {
+					
+					// Player kick shutdown message
+					player.kickPlayer("Shutdown message!");
+					
+				}
+			});
+			
+		}
+		
+		// Timeout runnable if error on kick
+		new Thread(new ShutdownTimeout()).start();
+		
+		// Wait until players are successfully kicked, unless timeout is called
+		while (!ShutdownTimeout.timeout) {
+			if (Bukkit.getOnlinePlayers().size() == 0) {
+				break;
+			}
+		}
+		
+		// Shutdown server method
+		AutoRestart.PLUGIN.getServer().shutdown();
+		
 	}
 	
 	public void calculateTimer() {

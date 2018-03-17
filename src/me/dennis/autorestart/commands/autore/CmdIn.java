@@ -22,7 +22,7 @@ public class CmdIn extends AutoCommand {
 				+ RED + hms.S + GRAY + " Seconds!");
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			TitleAPI.sendTitle(player, 10, 40, 10, GRAY + "Server will restart in", RED + hms.H.toString() + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
+			TitleAPI.sendTitle(player, 10, 40, 10, RED + "Server will restart in", RED + hms.H.toString() + GRAY + " Hours " + RED + hms.M + GRAY + " Minutes and " + RED + hms.S + GRAY + " Seconds!");
 		}
 	}
 

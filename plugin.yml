@@ -6,7 +6,3 @@ commands:
     autore:
         description: 'Main AutoRestart command.'
         usage: '/autore help'
-
-## TODO LIST
-# - Add bug posting "/autore senderror"
-# - Help command argument "/autore help <sub-command>"

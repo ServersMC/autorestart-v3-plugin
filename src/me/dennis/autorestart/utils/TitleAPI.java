@@ -14,12 +14,7 @@ public class TitleAPI {
 			Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
 			playerConnection.getClass().getMethod("sendPacket", new Class[] { getNMSClass("Packet") }).invoke(playerConnection, new Object[] { packet });
 		} catch (Exception e) {
-
-			// Error exception catch
-			Console.err("There was an error in the TimerThread class. If this is common, please PM error to ServersMC via PasteBin, or quickly send bug with /autore senderror");
-			e.printStackTrace();
-			Console.err("End of error");
-
+			Console.catchError(e, "TitleAPI.sendPacket()");
 		}
 	}
 
@@ -33,12 +28,7 @@ public class TitleAPI {
 			return Class.forName("net.minecraft.server." + version + "." + name);
 			
 		} catch (ClassNotFoundException e) {
-
-			// Error exception catch
-			Console.err("There was an error in the TimerThread class. If this is common, please PM error to ServersMC via PasteBin, or quickly send bug with /autore senderror");
-			e.printStackTrace();
-			Console.err("End of error");
-
+			Console.catchError(e, "TitleAPI.getNMSClass()");
 		}
 		return null;
 	}
@@ -80,12 +70,7 @@ public class TitleAPI {
 				
 			}
 		} catch (Exception e) {
-
-			// Error exception catch
-			Console.err("There was an error in the TimerThread class. If this is common, please PM error to ServersMC via PasteBin, or quickly send bug with /autore senderror");
-			e.printStackTrace();
-			Console.err("End of error");
-
+			Console.catchError(e, "TitleAPI.sendTitle()");
 		}
 	}
 }
