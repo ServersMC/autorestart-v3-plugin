@@ -10,16 +10,27 @@ public class CmdHelp extends AutoCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		for (AutoCommand cmd : CmdAutoRestart.subCommands) {
-			// Check if player has permission
-			if (cmd.getPermission() != null) {
-				if (!sender.hasPermission(cmd.getPermission())) {
-					continue;
+		// Check if argument number requirement meet
+		if (args.length == 0) {
+			
+			// List Sub Commands usage and Descriptions
+			for (AutoCommand cmd : CmdAutoRestart.subCommands) {
+				
+				// Check if player has permission
+				if (cmd.getPermission() != null) {
+					if (!sender.hasPermission(cmd.getPermission())) {
+						continue;
+					}
 				}
+				
+				// Outputs command usage and description
+				sender.sendMessage(GRAY + cmd.getUsage() + RED + " - " + GRAY + cmd.getDescription());
+				
 			}
 			
-			// Outputs command usage and description
-			sender.sendMessage(GRAY + cmd.getUsage() + RED + " - " + GRAY + cmd.getDescription());
+		}
+		else {
+			// TODO Add help dictionary
 		}
 	}
 
@@ -40,7 +51,7 @@ public class CmdHelp extends AutoCommand {
 
 	@Override
 	public String getUsage() {
-		return "/autore help";
+		return "/autore help <command>";
 	}
 
 }
