@@ -21,14 +21,14 @@ public class Messenger {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
 	}
 
-	private static void sortWhoGetsWhatChat(Boolean globalBroadcast, Boolean playerMessage, Player playerSender, List<String> globalMsgLines, List<String> playerMsgLines) {
+	private static void sortWhoGetsWhatChat(Boolean globalBroadcast, Boolean privateMessage, Player playerSender, List<String> globalMsgLines, List<String> privateMsgLines) {
 		
 		// Check if global broadcast is enabled
 		if (globalBroadcast) {
 			
 			// Everyone but console and/or sender gets global message
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (player.equals(playerSender) && playerMessage) {
+				if (player.equals(playerSender) && privateMessage) {
 					continue;
 				}
 				for (String msg : globalMsgLines) {
@@ -38,13 +38,13 @@ public class Messenger {
 		}
 		
 		// Check if player broadcast is enabled
-		if (playerMessage) {
+		if (privateMessage) {
 			
 			// Check if player triggered event
 			if (playerSender != null) {
 
 				// send private message to player
-				for (String msg : playerMsgLines) {
+				for (String msg : privateMsgLines) {
 					sendMessage(playerSender, msg);
 				}
 				
@@ -56,7 +56,7 @@ public class Messenger {
 		
 		// Check if console is sender and set console message list
 		if (playerSender == null) {
-			consoleList = playerMsgLines;
+			consoleList = privateMsgLines;
 		}
 		else {
 			consoleList = globalMsgLines;
@@ -131,23 +131,23 @@ public class Messenger {
 		
 		// Placeholder setups and message fetch
 		List<String> globalMsgLines = Config.GLOBAL_BROADCAST.MESSAGES.STATUS.START();
-		List<String> playerMsgLines = Config.PLAYER_MESSAGES.MESSAGES.STATUS.START();
+		List<String> privateMsgLines = Config.PRIVATE_MESSAGES.MESSAGES.STATUS.START();
 		
 		// Boolean shortcuts
 		Boolean globalBroadcast = Config.GLOBAL_BROADCAST.ENABLED.STATUS.START();
-		Boolean playerMessage = Config.PLAYER_MESSAGES.ENABLED.STATUS.START();
+		Boolean privateMessage = Config.PRIVATE_MESSAGES.ENABLED.STATUS.START();
 
 		// TODO COPY EVERYTHING FOR POPUPS!!
 		
 		// TODO check if global and player pop ups are on
 		if (true && true) { // THESE VALUES ARE SUPPOSE TO BE FALSE
-			if (!playerMessage) {
+			if (!privateMessage) {
 				globalBroadcast = true;
 			}
 		}
 		
 		// Sorts who gets global broadcast and who gets player message depending on config setup
-		sortWhoGetsWhatChat(globalBroadcast, playerMessage, playerSender, globalMsgLines, playerMsgLines);
+		sortWhoGetsWhatChat(globalBroadcast, privateMessage, playerSender, globalMsgLines, privateMsgLines);
 	}
 
 	public static void broadcastStatusPause(CommandSender sender) {
@@ -159,23 +159,23 @@ public class Messenger {
 		
 		// Placeholder setups and message fetch
 		List<String> globalMsgLines = Config.GLOBAL_BROADCAST.MESSAGES.STATUS.PAUSE();
-		List<String> playerMsgLines = Config.PLAYER_MESSAGES.MESSAGES.STATUS.PAUSE();
+		List<String> privateMsgLines = Config.PRIVATE_MESSAGES.MESSAGES.STATUS.PAUSE();
 		
 		// Boolean shortcuts
 		Boolean globalBroadcast = Config.GLOBAL_BROADCAST.ENABLED.STATUS.PAUSE();
-		Boolean playerMessage = Config.PLAYER_MESSAGES.ENABLED.STATUS.PAUSE();
+		Boolean privateMessage = Config.PRIVATE_MESSAGES.ENABLED.STATUS.PAUSE();
 
 		// TODO COPY EVERYTHING FOR POPUPS!!
 		
 		// TODO check if global and player pop ups are on
 		if (true && true) { // THESE VALUES ARE SUPPOSE TO BE FALSE
-			if (!playerMessage) {
+			if (!privateMessage) {
 				globalBroadcast = true;
 			}
 		}
 		
 		// Sorts who gets global broadcast and who gets player message depending on config setup
-		sortWhoGetsWhatChat(globalBroadcast, playerMessage, playerSender, globalMsgLines, playerMsgLines);
+		sortWhoGetsWhatChat(globalBroadcast, privateMessage, playerSender, globalMsgLines, privateMsgLines);
 	}
 	
 	public static void broadcastChange(CommandSender sender) {
@@ -188,17 +188,17 @@ public class Messenger {
 		// Placeholder setups and message fetch
 		HMS hms = TimerParser.parseToHMS(AutoRestart.TIMER.TIME);
 		List<String> globalMsgLines = Config.GLOBAL_BROADCAST.MESSAGES.CHANGE();
-		List<String> playerMsgLines = Config.PLAYER_MESSAGES.MESSAGES.CHANGE();
+		List<String> privateMsgLines = Config.PRIVATE_MESSAGES.MESSAGES.CHANGE();
 		
 		// Boolean shortcuts
 		Boolean globalBroadcast = Config.GLOBAL_BROADCAST.ENABLED.CHANGE();
-		Boolean playerMessage = Config.PLAYER_MESSAGES.ENABLED.CHANGE();
+		Boolean privateMessage = Config.PRIVATE_MESSAGES.ENABLED.CHANGE();
 		
 		// TODO COPY EVERYTHING FOR POPUPS!!
 		
 		// TODO check if global and player pop ups are on
 		if (true && true) { // THESE VALUES ARE SUPPOSE TO BE FALSE
-			if (!playerMessage) {
+			if (!privateMessage) {
 				globalBroadcast = true;
 			}
 		}
@@ -207,11 +207,11 @@ public class Messenger {
 		for (int i = 0; i < globalMsgLines.size(); i++) {
 			globalMsgLines.set(i, globalMsgLines.get(i).replaceAll("%h", hms.H.toString()).replaceAll("%m", hms.M.toString()).replaceAll("%s", hms.S.toString()));
 		}
-		for (int i = 0; i < playerMsgLines.size(); i++) {
-			playerMsgLines.set(i, playerMsgLines.get(i).replaceAll("%h", hms.H.toString()).replaceAll("%m", hms.M.toString()).replaceAll("%s", hms.S.toString()));
+		for (int i = 0; i < privateMsgLines.size(); i++) {
+			privateMsgLines.set(i, privateMsgLines.get(i).replaceAll("%h", hms.H.toString()).replaceAll("%m", hms.M.toString()).replaceAll("%s", hms.S.toString()));
 		}
 
-		sortWhoGetsWhatChat(globalBroadcast, playerMessage, playerSender, globalMsgLines, playerMsgLines);
+		sortWhoGetsWhatChat(globalBroadcast, privateMessage, playerSender, globalMsgLines, privateMsgLines);
 	}
 	
 	public static void broadcastMaxplayersAlert() {
@@ -268,11 +268,15 @@ public class Messenger {
 	}
 	
 	public static void messageSenderTime(CommandSender sender) {
+		// Placeholder setups and message fetch
+		HMS hms = TimerParser.parseToHMS(AutoRestart.TIMER.TIME);
+		List<String> msgLines = Config.PRIVATE_MESSAGES.MESSAGES.TIME();
+		
 		// Checks if sender is a player
 		if (sender instanceof Player) {
 			// TODO Check if pop ups are enabled
 			if (true) {
-				if (!Config.PLAYER_MESSAGES.ENABLED.TIME()) {
+				if (!Config.PRIVATE_MESSAGES.ENABLED.TIME()) {
 					
 					// TODO send pop ups
 					
@@ -281,10 +285,6 @@ public class Messenger {
 				}
 			}
 		}
-
-		// Placeholder setups and message fetch
-		HMS hms = TimerParser.parseToHMS(AutoRestart.TIMER.TIME);
-		List<String> msgLines = Config.PLAYER_MESSAGES.MESSAGES.TIME();
 		
 		// Private message lines
 		for (String msg : msgLines) {

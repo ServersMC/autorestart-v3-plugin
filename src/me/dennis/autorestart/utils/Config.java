@@ -86,22 +86,22 @@ public class Config {
 		}
 	}
 	
-	public static class PLAYER_MESSAGES {
+	public static class PRIVATE_MESSAGES {
 		public static class ENABLED {
-			public static Boolean TIME() { return getBoolean("player_messages.enabled.time", true); }
+			public static Boolean TIME() { return getBoolean("private_messages.enabled.time", true); }
 			public static class STATUS {
-				public static Boolean START() { return getBoolean("player_messages.enabled.status.start", true); }
-				public static Boolean PAUSE() { return getBoolean("player_messages.enabled.status.pause", true); }
+				public static Boolean START() { return getBoolean("private_messages.enabled.status.start", true); }
+				public static Boolean PAUSE() { return getBoolean("private_messages.enabled.status.pause", true); }
 			}
-			public static Boolean CHANGE() { return getBoolean("player_messages.enabled.change", true); }
+			public static Boolean CHANGE() { return getBoolean("private_messages.enabled.change", true); }
 		}
 		public static class MESSAGES {
-			public static List<String> TIME() { return getStringList("player_messages.messages.time"); }
+			public static List<String> TIME() { return getStringList("private_messages.messages.time"); }
 			public static class STATUS {
-				public static List<String> START() { return getStringList("player_messages.messages.status.start"); }
-				public static List<String> PAUSE() { return getStringList("player_messages.messages.status.pause"); }
+				public static List<String> START() { return getStringList("private_messages.messages.status.start"); }
+				public static List<String> PAUSE() { return getStringList("private_messages.messages.status.pause"); }
 			}
-			public static List<String> CHANGE() { return getStringList("player_messages.messages.change"); }
+			public static List<String> CHANGE() { return getStringList("private_messages.messages.change"); }
 		}
 	}
 	
