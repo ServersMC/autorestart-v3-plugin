@@ -62,6 +62,7 @@ public class CmdAutoRestart implements CommandExecutor {
 		subCommands.add(new CmdHelp());
 		subCommands.add(new CmdIn());
 		subCommands.add(new CmdNow());
+		subCommands.add(new CmdTime());
 	}
 
 }
