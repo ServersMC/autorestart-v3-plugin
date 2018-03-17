@@ -13,15 +13,27 @@ import me.dennis.autorestart.utils.ShutdownTimeout;
 
 public class TimerThread implements Runnable {
 
-	public Boolean RUNNING = true;
+	public Boolean PAUSED = false;
 	public Integer TIME;
 	
 	@Override
 	public void run() {
-		while (RUNNING) {
+		while (PAUSED) {
+			// Timer freeze frame
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				Console.catchError(e, "TimerThread.run():sleep");
+			}
+			
 			// Timer end break
 			if (TIME == 0) {
 				break;
+			}
+			
+			// Check if timer is paused
+			if (PAUSED) {
+				continue;
 			}
 			
 			// Minutes Reminder
@@ -44,11 +56,6 @@ public class TimerThread implements Runnable {
 			
 			// Timer decrement
 			TIME--;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				Console.catchError(e, "TimerThread.run()");
-			}
 		}
 		
 		// Player kick / restart message
