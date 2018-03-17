@@ -18,7 +18,7 @@ public class Console {
     }
     
     public static void consoleSendMessage(String s) {
-        Bukkit.getConsoleSender().sendMessage(s);
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', s));
     }
 
 	public static void catchError(Exception e, String loc) {

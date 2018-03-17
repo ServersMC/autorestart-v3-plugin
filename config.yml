@@ -37,7 +37,9 @@ reminder:
 ## The reason why you can enable or disable broadcasts and popups, is to give you the flexibility to
 ## choose whether you want your players to see a broadcast or a popup of the event. Or both! If you have
 ## both popups and broadcasts disabled, broadcasts are automaticlly enabled. If broadcasts player messages,
-## and popups are all disabled, then it will aswell be automaticlly enabled in broadcasts.
+## and popups are all disabled, then it will aswell be automaticlly enabled in broadcasts. If broadcasts and
+## player messages are disabled, but popups are enabled, console will get a private message for logs. Since
+## command line cant recieve popups.
     
 ## These are global broadcasts the everyone sees. If the same task is enabled in "player_messages"
 ##  the player who initiated the event will not see the broadcast, but will see his own broadcast.
@@ -47,13 +49,15 @@ global_broadcast:
     enabled:
         ## Show the broadcast on the minute reminders!
         minutes: true
-        ## Show the broadcast on the last seconds of a server restart! [Duplicated in Player_Messages]
+        ## Show the broadcast on the last seconds of a server restart!
         seconds: true
         ## Show the broadcast when typed /autore start or /autore pause
+        ## [Duplicated in Player_Messages]
         status:
             start: true
             pause: true
-        ## Show the broadcast when the server time has been changed! [Duplicated in Player_Messages]
+        ## Show the broadcast when the server time has been changed!
+        ## [Duplicated in Player_Messages]
         change: true
         ## Show the Maxplayers broadcast
         max_players:
@@ -66,29 +70,31 @@ global_broadcast:
     messages:
         ## %m - minutes
         minutes:
-        - 'Server Will Restart In %m Minutes!'
+            - 'Server Will Restart In %m Minutes!'
         ## %s - seconds
         seconds:
-        - 'Server is restarting in %s Seconds!'
+            - 'Server is restarting in %s Seconds!'
         ## There are no tags for this section.
+        ## [Duplicated in Player_Messages]
         status:
             start:
-            - '&cAutoRestart timer has started!'
+                - '&cAutoRestart timer has started!'
             pause:
-            - '&cAutoRestart timer has been paused'
-        ## %h - hours, %m - minutes, %s - seconds
+                - '&cAutoRestart timer has been paused'
+        ## %h - hours, %m - minutes, %s - seconds.
+        ## [Duplicated in Player_Messages]
         change:
-        - '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
+            - '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
         ## Maxplayers broadcast settings
         max_players:
             ## The message broadcasted when too many players are online on restart!
             ## %a - amount
             alert:
-            - '&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!'
+                - '&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!'
             ## This message appears when the amount of players requirement is met!
             ## %d - delay
             pre_shutdown:
-            - '&aServer now restarting in &f%d&a seconds!'
+                - '&aServer now restarting in &f%d&a seconds!'
 
 ## These are private messages sent to the player when the event is triggered. If the same task is enabled in
 ##  "global_broadcast", this player will not see the global message, but his own.
@@ -102,21 +108,22 @@ player_messages:
         status:
             start: true
             pause: true
-        ## Show the broadcast when the server time has been changed!
+        ## Show the broadcast when the server time has been changed! [Duplicated in Global_Messages]
         change: true
+    ## Messages have multi line support!
     messages:
         ## %h - hours, %m - minutes, %s - seconds
         time:
-        - '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
-        ## There are no tags for this section.
+            - '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
+        ## There are no tags for this section. [Duplicated in Global_Messages]
         status:
             start:
-            - '&cAutoRestart timer has started!'
+                - '&cAutoRestart timer has started!'
             pause:
-            - '&cAutoRestart timer has been paused'
-        ## %h - hours, %m - minutes, %s - seconds
+                - '&cAutoRestart timer has been paused'
+        ## %h - hours, %m - minutes, %s - seconds [Duplicated in Global_Messages]
         change:
-        - '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
+            - '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
 
 ## This will stop your server from shutting down if you have more than X amount of players configured in "amount".
 max_players:
