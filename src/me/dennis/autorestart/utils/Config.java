@@ -6,6 +6,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
 
+	// TODO Separate Configuration Files
+	
     private static FileConfiguration config = null;
     
     public static Integer VERSION;
