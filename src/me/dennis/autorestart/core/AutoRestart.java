@@ -7,6 +7,7 @@ import me.dennis.autorestart.commands.CmdAutoRestart;
 import me.dennis.autorestart.enums.FileEnum;
 import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
+import me.dennis.autorestart.utils.UpdateChecker;
 
 public class AutoRestart extends JavaPlugin {
 
@@ -43,6 +44,19 @@ public class AutoRestart extends JavaPlugin {
 
 			// Done
 			Console.info("Loaded!");
+			
+			// Check for updates
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				@Override
+				public void run() {
+					if (UpdateChecker.checkUpdate()) {
+						Console.warn("There is a new version of AutoRestart! Go get it now!");
+					}
+					else {
+						Console.info("Up to date!");
+					}
+				}
+			});
 		} catch (Exception e) {
 			Console.catchError(e, "Unfiltered Error!");
 		}
