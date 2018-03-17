@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dennis.autorestart.commands.CmdAutoRestart;
+import me.dennis.autorestart.enums.FileEnum;
 import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
 
@@ -20,15 +21,23 @@ public class AutoRestart extends JavaPlugin {
 		PLUGIN = this;
 		VERSION = getDescription().getVersion();
 		
+		// Setup plugin folder if does not exist
+		getDataFolder().mkdirs();
+		
+		// Setup files
+		for (FileEnum file : FileEnum.values()) {
+			file.setup();
+		}
+		
 		// Configuration file
 		Config.setConfig(getConfig());
 
-		// Command
+		// Command setup
 		new CmdAutoRestart();
 		CmdAutoRestart.setupSubCommands();
 		Bukkit.getPluginCommand("autore").setExecutor(new CmdAutoRestart());
 		
-		// Timer
+		// Timer thread
 		TIMER.calculateTimer();
 		new Thread(TIMER).start();
 		
