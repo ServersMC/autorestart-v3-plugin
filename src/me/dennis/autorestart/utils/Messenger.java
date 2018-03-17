@@ -1,7 +1,6 @@
 package me.dennis.autorestart.utils;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -95,7 +94,7 @@ public class Messenger {
 		
 		// TODO COPY EVERYTHING FOR POPUPS!!
 		
-		// TODO check is global and player pop ups are on
+		// TODO check if global and player pop ups are on
 		if (true && true) { // THESE VALUES ARE SUPPOSE TO BE FALSE
 			if (!playerMessage) {
 				globalBroadcast = true;
