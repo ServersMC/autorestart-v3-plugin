@@ -9,6 +9,8 @@ public abstract class AutoCommand {
 	public abstract String getDescription();
 	public abstract String getPermission();
 	public abstract String getUsage();
-	
+	public String getDictionary() {
+		return "";
+	}
 	
 }
