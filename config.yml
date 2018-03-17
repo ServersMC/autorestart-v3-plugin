@@ -1,0 +1,7 @@
+main:
+    restart_mode: 'interval'
+    modes:
+        ## Interval in Hours
+        interval: 3.0
+        ## Set the timestamp in 24 hour time format HH:MM
+        timestamp: '6:00'

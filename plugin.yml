@@ -1,0 +1,12 @@
+name: AutoRestart
+version: 3.0.0
+main: me.dennis.autorestart.core.AutoRestart
+author: ServersMC, DennisLysenko
+commands:
+    autore:
+        description: 'Main AutoRestart command.'
+        usage: '/autore help'
+
+## TODO LIST
+# - Add bug posting "/autore senderror"
+# - Help command argument "/autore help <sub-command>"

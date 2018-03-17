@@ -1,0 +1,18 @@
+Introduction:
+	AutoRestart-Reloaded plugin is just a "Messenger". It tells the players, when the server will
+restart, or it is estimating when the server will restart. The server restarting functions are done by a
+third party process such as the Batch file, Bash (.sh) file, or  MultiCraft.
+
+Installation (Continued): (With MutliCraft)
+	Go into your Scheduled Tasks inside your MultiCraft panel, and add a command where the server will
+restart every certain amount of minutes/hours. (Make sure the interval is the same as your config.yml).
+	Please note that I do not have MutliCraft to test this feature. If you have MultiCraft please message
+me what you did for this plugin to work so I can refine these instructions.
+
+Conclusion:
+	I want to apologize for not updating the plugin as regularly, I have been busy with work, and school
+so I'm never on my computereven for gaming, searching, or purchasing. The only reason I have used my PC
+is for school. Thank you all for using my plugin, and I would love to visit your server seeing you use my
+plugin. Enjoy this unique up-to-date plugin, and happy gaming.
+
+Thank you.
