@@ -144,12 +144,6 @@ public class TimerThread implements Runnable {
 			TIME = (int) (Config.MAIN.MODES.INTERVAL() * 3600);
 			break;
 			
-		case "TIMESTAMP":
-			
-			// TODO TimeStamp Interval calculator
-			
-			break;
-			
 		default:
 
 			// Default timer calculator

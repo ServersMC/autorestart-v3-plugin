@@ -13,6 +13,7 @@ public class CmdReload extends AutoCommand {
 	public void execute(CommandSender sender, String[] args) {
 		AutoRestart.PLUGIN.reloadConfig();
         Config.setConfig(AutoRestart.PLUGIN.getConfig());
+		AutoRestart.TIMER.calculateTimer();
 		sender.sendMessage(ChatColor.GRAY + "Config has been reloaded!");
 	}
 

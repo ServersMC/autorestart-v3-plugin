@@ -11,7 +11,7 @@ public enum FileEnum {
     CONFIG(new Callable<Void>() {
         @Override
         public Void call() throws Exception {
-            if (!new File("config.yml").exists()) {
+            if (!new File(AutoRestart.PLUGIN.getDataFolder(),  "config.yml").exists()) {
                 AutoRestart.PLUGIN.saveResource("config.yml", false);
             }
             return null;
