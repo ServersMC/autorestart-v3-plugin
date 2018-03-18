@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.dennis.autorestart.core.AutoRestart;
 import me.dennis.autorestart.types.HMS;
 
 public class Messenger {
@@ -67,8 +68,7 @@ public class Messenger {
 	}
 
 	public static String formatA(String s) {
-		String amount = Config.MAX_PLAYERS.AMOUNT().toString();
-		return s.replaceAll("%a", amount);
+		return s.replaceAll("%a", AutoRestart.TIMER.TIME.toString());
 	}
 
 	public static String formatD(String s) {
@@ -213,7 +213,7 @@ public class Messenger {
 				
 				// Send to console only
 				for (String msg : msgLines) {
-					Console.consoleSendMessage(msg.replaceAll("%s", hms.S.toString()));
+					Console.consoleSendMessage(msg.replaceAll("%s", AutoRestart.TIMER.TIME.toString()));
 				}
 				
 				// Disable for players
