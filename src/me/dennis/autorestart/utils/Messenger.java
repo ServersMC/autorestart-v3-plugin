@@ -160,7 +160,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MINUTES, Messenger.class.getMethod("formatM", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MINUTES(), Messenger.class.getMethod("formatM", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastReminderMinutes():SendPopUps");
 				}
@@ -195,7 +195,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SECONDS, Messenger.class.getMethod("formatS", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SECONDS(), Messenger.class.getMethod("formatS", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastReminderSeconds():SendPopUps");
 				}
@@ -244,7 +244,7 @@ public class Messenger {
 		}
 		else {
 			try {
-				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.START, Config.PRIVATE_POPUPS.MESSAGES.STATUS.START, Messenger.class.getMethod("formatSkip", String.class));
+				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.START(), Config.PRIVATE_POPUPS.MESSAGES.STATUS.START(), Messenger.class.getMethod("formatSkip", String.class));
 			} catch (Exception e) {
 				Console.catchError(e, "Messenger.broadcastStatusStart():SortWhoGetsWhatPopUp");
 			}
@@ -279,7 +279,7 @@ public class Messenger {
 		}
 		else {
 			try {
-				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.PAUSE, Config.PRIVATE_POPUPS.MESSAGES.STATUS.PAUSE, Messenger.class.getMethod("formatSkip", String.class));
+				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.PAUSE(), Config.PRIVATE_POPUPS.MESSAGES.STATUS.PAUSE(), Messenger.class.getMethod("formatSkip", String.class));
 			} catch (Exception e) {
 				Console.catchError(e, "Messenger.broadcastStatusPause():SortWhoGetsWhatPopUp");
 			}
@@ -315,7 +315,7 @@ public class Messenger {
 		}
 		else {
 			try {
-				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.CHANGE, Config.PRIVATE_POPUPS.MESSAGES.CHANGE, Messenger.class.getMethod("formatHMS", String.class));
+				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.CHANGE(), Config.PRIVATE_POPUPS.MESSAGES.CHANGE(), Messenger.class.getMethod("formatHMS", String.class));
 			} catch (Exception e) {
 				Console.catchError(e, "Messenger.broadcastChange():SortWhoGetsWhatPopUp");
 			}
@@ -343,7 +343,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.ALERT, Messenger.class.getMethod("formatA", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.ALERT(), Messenger.class.getMethod("formatA", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastMaxplayersAlert():SendPopUps");
 				}
@@ -377,7 +377,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.PRE_SHUTDOWN, Messenger.class.getMethod("formatD", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.PRE_SHUTDOWN(), Messenger.class.getMethod("formatD", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastMaxplayersPreShutdown():SendPopUps");
 				}
@@ -416,7 +416,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.PRIVATE_POPUPS.MESSAGES.PAUSE_REMINDER, Messenger.class.getMethod("formatSkip", String.class));
+					sendTitle(player, Config.PRIVATE_POPUPS.MESSAGES.PAUSE_REMINDER(), Messenger.class.getMethod("formatSkip", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastPauseReminder():SendPopUps");
 				}
@@ -444,7 +444,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SHUTDOWN, Messenger.class.getMethod("formatSkip", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SHUTDOWN(), Messenger.class.getMethod("formatSkip", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastShutdown():SendPopUps");
 				}
@@ -481,7 +481,7 @@ public class Messenger {
 				
 				// send pop ups
 				try {
-					sendTitle((Player) sender, Config.PRIVATE_POPUPS.MESSAGES.TIME, Messenger.class.getMethod("formatHMS", String.class));
+					sendTitle((Player) sender, Config.PRIVATE_POPUPS.MESSAGES.TIME(), Messenger.class.getMethod("formatHMS", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.messageSenderTime():SendPopUps");
 				}

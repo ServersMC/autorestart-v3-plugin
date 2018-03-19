@@ -1,11 +1,16 @@
 package me.dennis.autorestart.utils.config.global_popups.messages;
 
 import me.dennis.autorestart.objects.ConfigPopup;
+import me.dennis.autorestart.utils.config.Config;
 
 public class Status {
 
-	public ConfigPopup START = new ConfigPopup("global_popups.messages.status.start", "&cAutoRestart has started!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
+	public ConfigPopup START() {
+		return new ConfigPopup(Config.getNode(), "&cAutoRestart has started!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
+	}
 	
-	public ConfigPopup PAUSE = new ConfigPopup("global_popups.messages.status.pause", "&cAutoRestart has been paused!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
+	public ConfigPopup PAUSE() {
+		return new ConfigPopup(Config.getNode(), "&cAutoRestart has been paused!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
+	}
 	
 }
