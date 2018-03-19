@@ -1,4 +1,4 @@
-package me.dennis.autorestart.types;
+package me.dennis.autorestart.abstracts;
 
 import org.bukkit.command.CommandSender;
 

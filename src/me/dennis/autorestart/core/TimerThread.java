@@ -6,10 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
 import me.dennis.autorestart.utils.Messenger;
 import me.dennis.autorestart.utils.ShutdownTimeout;
+import me.dennis.autorestart.utils.config.Config;
 
 public class TimerThread implements Runnable {
 

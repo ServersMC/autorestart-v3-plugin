@@ -7,9 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import me.dennis.autorestart.abstracts.AutoCommand;
 import me.dennis.autorestart.commands.autore.*;
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.types.AutoCommand;
 import me.dennis.autorestart.utils.Console;
 
 public class CmdAutoRestart implements CommandExecutor {

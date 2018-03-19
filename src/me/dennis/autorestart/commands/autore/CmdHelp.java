@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.dennis.autorestart.abstracts.AutoCommand;
 import me.dennis.autorestart.commands.CmdAutoRestart;
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.types.AutoCommand;
 import me.dennis.autorestart.utils.Console;
 
 public class CmdHelp extends AutoCommand {

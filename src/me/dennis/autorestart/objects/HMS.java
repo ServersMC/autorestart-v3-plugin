@@ -1,6 +1,5 @@
-package me.dennis.autorestart.types;
+package me.dennis.autorestart.objects;
 
-// Hours Minutes Seconds class
 public class HMS {
 
 	public Integer H;

@@ -1,7 +1,7 @@
 package me.dennis.autorestart.utils;
 
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.types.HMS;
+import me.dennis.autorestart.objects.HMS;
 
 public class TimerParser {
 

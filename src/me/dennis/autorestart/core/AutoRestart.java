@@ -8,9 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dennis.autorestart.commands.CmdAutoRestart;
 import me.dennis.autorestart.enums.FileEnum;
-import me.dennis.autorestart.utils.Config;
 import me.dennis.autorestart.utils.Console;
 import me.dennis.autorestart.utils.UpdateChecker;
+import me.dennis.autorestart.utils.config.Config;
 
 public class AutoRestart extends JavaPlugin {
 

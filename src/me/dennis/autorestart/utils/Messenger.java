@@ -1,5 +1,6 @@
 package me.dennis.autorestart.utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -9,7 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.types.HMS;
+import me.dennis.autorestart.objects.ConfigPopup;
+import me.dennis.autorestart.objects.ConfigTitle;
+import me.dennis.autorestart.objects.HMS;
+import me.dennis.autorestart.utils.config.Config;
 
 public class Messenger {
 
@@ -28,27 +32,15 @@ public class Messenger {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
 	}
 
-	private static void sendTitle(Player player, Class<?> c, Method formater) {
+	private static void sendTitle(Player player, ConfigPopup popup, Method formatter) {
 		TitleAPI.sendTitle(player, Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), "", "");
+		ConfigTitle title = popup.TITLE;
+		ConfigTitle subtitle = popup.SUBTITLE;
 		try {
-			Class<?> clezz = Class.forName(c.getName() + "$TITLE");
-			Integer fadeIn = Integer.parseInt(clezz.getMethod("FADEIN").invoke(null).toString());
-			Integer stay = Integer.parseInt(clezz.getMethod("STAY").invoke(null).toString());
-			Integer fadeOut = Integer.parseInt(clezz.getMethod("FADEOUT").invoke(null).toString());
-			String text = clezz.getMethod("TEXT").invoke(null).toString();
-			TitleAPI.sendTitle(player, fadeIn, stay, fadeOut, formater.invoke(null, text).toString(), null);
-		} catch (Exception e) {
-			Console.catchError(e, "Messenger.sendTitle():TITLE");
-		}
-		try {
-			Class<?> clazz = Class.forName(c.getName() + "$SUBTITLE");
-			Integer fadeIn = Integer.parseInt(clazz.getMethod("FADEIN").invoke(null).toString());
-			Integer stay = Integer.parseInt(clazz.getMethod("STAY").invoke(null).toString());
-			Integer fadeOut = Integer.parseInt(clazz.getMethod("FADEOUT").invoke(null).toString());
-			String text = clazz.getMethod("TEXT").invoke(null).toString();
-			TitleAPI.sendTitle(player, fadeIn, stay, fadeOut, null, formater.invoke(null, text).toString());
-		} catch (Exception e) {
-			Console.catchError(e, "Messenger.sendTitle():SUBTITLE");
+			TitleAPI.sendTitle(player, title.FADEIN(), title.STAY(), title.FADEOUT(), formatter.invoke(null, title.TEXT()).toString(), null);
+			TitleAPI.sendTitle(player, subtitle.FADEIN(), subtitle.STAY(), subtitle.FADEOUT(), null, formatter.invoke(null, subtitle.TEXT()).toString());
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			Console.catchError(e, "Messenger.sendTitle():formatter");
 		}
 	}
 
@@ -129,7 +121,7 @@ public class Messenger {
 		
 	}
 	
-	private static void sortWhoGetsWhatPopUp(Boolean globalPopup, Boolean privatePopup, Player playerSender, Class<?> globalClass, Class<?> privateClass, Method method) {
+	private static void sortWhoGetsWhatPopUp(Boolean globalPopup, Boolean privatePopup, Player playerSender, ConfigPopup globalPopupConfig, ConfigPopup privatePopupConfig, Method method) {
 
 		// Check if global pop up is enabled
 		if (globalPopup) {
@@ -139,7 +131,7 @@ public class Messenger {
 				if (player.equals(playerSender) && privatePopup) {
 					continue;
 				}
-				sendTitle(player, globalClass, method);
+				sendTitle(player, globalPopupConfig, method);
 			}
 		}
 		
@@ -150,7 +142,7 @@ public class Messenger {
 			if (playerSender != null) {
 
 				// send private pop up to player
-				sendTitle(playerSender, privateClass, method);
+				sendTitle(playerSender, privatePopupConfig, method);
 				
 			}
 		}
@@ -168,7 +160,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MINUTES.class, Messenger.class.getMethod("formatM", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MINUTES, Messenger.class.getMethod("formatM", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastReminderMinutes():SendPopUps");
 				}
@@ -203,7 +195,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SECONDS.class, Messenger.class.getMethod("formatS", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SECONDS, Messenger.class.getMethod("formatS", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastReminderSeconds():SendPopUps");
 				}
@@ -252,7 +244,7 @@ public class Messenger {
 		}
 		else {
 			try {
-				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.START.class, Config.PRIVATE_POPUPS.MESSAGES.STATUS.START.class, Messenger.class.getMethod("formatSkip", String.class));
+				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.START, Config.PRIVATE_POPUPS.MESSAGES.STATUS.START, Messenger.class.getMethod("formatSkip", String.class));
 			} catch (Exception e) {
 				Console.catchError(e, "Messenger.broadcastStatusStart():SortWhoGetsWhatPopUp");
 			}
@@ -287,7 +279,7 @@ public class Messenger {
 		}
 		else {
 			try {
-				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.PAUSE.class, Config.PRIVATE_POPUPS.MESSAGES.STATUS.PAUSE.class, Messenger.class.getMethod("formatSkip", String.class));
+				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.STATUS.PAUSE, Config.PRIVATE_POPUPS.MESSAGES.STATUS.PAUSE, Messenger.class.getMethod("formatSkip", String.class));
 			} catch (Exception e) {
 				Console.catchError(e, "Messenger.broadcastStatusPause():SortWhoGetsWhatPopUp");
 			}
@@ -323,7 +315,7 @@ public class Messenger {
 		}
 		else {
 			try {
-				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.CHANGE.class, Config.PRIVATE_POPUPS.MESSAGES.CHANGE.class, Messenger.class.getMethod("formatHMS", String.class));
+				sortWhoGetsWhatPopUp(globalPopup, privatePopup, playerSender, Config.GLOBAL_POPUPS.MESSAGES.CHANGE, Config.PRIVATE_POPUPS.MESSAGES.CHANGE, Messenger.class.getMethod("formatHMS", String.class));
 			} catch (Exception e) {
 				Console.catchError(e, "Messenger.broadcastChange():SortWhoGetsWhatPopUp");
 			}
@@ -351,7 +343,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.ALERT.class, Messenger.class.getMethod("formatA", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.ALERT, Messenger.class.getMethod("formatA", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastMaxplayersAlert():SendPopUps");
 				}
@@ -385,7 +377,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.PRE_SHUTDOWN.class, Messenger.class.getMethod("formatD", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.MAX_PLAYERS.PRE_SHUTDOWN, Messenger.class.getMethod("formatD", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastMaxplayersPreShutdown():SendPopUps");
 				}
@@ -424,7 +416,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.PRIVATE_POPUPS.MESSAGES.PAUSE_REMINDER.class, Messenger.class.getMethod("formatSkip", String.class));
+					sendTitle(player, Config.PRIVATE_POPUPS.MESSAGES.PAUSE_REMINDER, Messenger.class.getMethod("formatSkip", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastPauseReminder():SendPopUps");
 				}
@@ -452,7 +444,7 @@ public class Messenger {
 			// send pop ups
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SHUTDOWN.class, Messenger.class.getMethod("formatSkip", String.class));
+					sendTitle(player, Config.GLOBAL_POPUPS.MESSAGES.SHUTDOWN, Messenger.class.getMethod("formatSkip", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.broadcastShutdown():SendPopUps");
 				}
@@ -489,7 +481,7 @@ public class Messenger {
 				
 				// send pop ups
 				try {
-					sendTitle((Player) sender, Config.PRIVATE_POPUPS.MESSAGES.TIME.class, Messenger.class.getMethod("formatHMS", String.class));
+					sendTitle((Player) sender, Config.PRIVATE_POPUPS.MESSAGES.TIME, Messenger.class.getMethod("formatHMS", String.class));
 				} catch (Exception e) {
 					Console.catchError(e, "Messenger.messageSenderTime():SendPopUps");
 				}

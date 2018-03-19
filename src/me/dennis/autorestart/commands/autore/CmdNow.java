@@ -3,8 +3,8 @@ package me.dennis.autorestart.commands.autore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import me.dennis.autorestart.abstracts.AutoCommand;
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.types.AutoCommand;
 
 public class CmdNow extends AutoCommand {
 

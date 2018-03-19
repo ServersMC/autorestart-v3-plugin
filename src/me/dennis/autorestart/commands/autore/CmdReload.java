@@ -3,9 +3,9 @@ package me.dennis.autorestart.commands.autore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import me.dennis.autorestart.abstracts.AutoCommand;
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.types.AutoCommand;
-import me.dennis.autorestart.utils.Config;
+import me.dennis.autorestart.utils.config.Config;
 
 public class CmdReload extends AutoCommand {
 

@@ -2,7 +2,7 @@ package me.dennis.autorestart.commands.autore;
 
 import org.bukkit.command.CommandSender;
 
-import me.dennis.autorestart.types.AutoCommand;
+import me.dennis.autorestart.abstracts.AutoCommand;
 import me.dennis.autorestart.utils.Messenger;
 
 public class CmdTime extends AutoCommand {
