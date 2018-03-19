@@ -7,11 +7,11 @@ import me.dennis.autorestart.utils.config.Config;
 public class MaxPlayers extends Config {
 
 	public List<String> ALERT() {
-		return getStringList("global_broadcast.messages.max_players.alert");
+		return getStringList(Config.getNode());
 	}
 
 	public List<String> PRE_SHUTDOWN() {
-		return getStringList("global_broadcast.messages.max_players.pre_shutdown");
+		return getStringList(Config.getNode());
 	}
 	
 }

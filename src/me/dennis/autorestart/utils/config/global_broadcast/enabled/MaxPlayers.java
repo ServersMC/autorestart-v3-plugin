@@ -5,11 +5,11 @@ import me.dennis.autorestart.utils.config.Config;
 public class MaxPlayers {
 
 	public Boolean ALERT() {
-		return Config.getBoolean("global_broadcast.enabled.max_players.alert", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 
 	public Boolean PRE_SHUTDOWN() {
-		return Config.getBoolean("global_broadcast.enabled.max_players.pre_shutdown", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 	
 }

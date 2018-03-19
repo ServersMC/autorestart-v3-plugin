@@ -5,15 +5,15 @@ import java.util.List;
 public class Commands {
 
 	public Boolean ENABLED() {
-		return Config.getBoolean("commands.enabled", false);
+		return Config.getBoolean(Config.getNode(), false);
 	}
 
 	public Integer SECONDS() {
-		return Config.getInteger("commands.seconds", 5);
+		return Config.getInteger(Config.getNode(), 5);
 	}
 
 	public List<String> LIST() {
-		return Config.getStringList("commands.list");
+		return Config.getStringList(Config.getNode());
 	}
 
 }

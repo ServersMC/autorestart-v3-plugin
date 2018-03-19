@@ -5,11 +5,11 @@ import me.dennis.autorestart.utils.config.Config;
 public class Status {
 
 	public Boolean START() {
-		return Config.getBoolean("private_messages.enabled.status.start", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 
 	public Boolean PAUSE() {
-		return Config.getBoolean("private_messages.enabled.status.pause", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 	
 }

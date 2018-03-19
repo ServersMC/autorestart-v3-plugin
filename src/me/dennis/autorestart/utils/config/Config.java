@@ -18,6 +18,12 @@ public class Config {
 	public static Commands COMMANDS = new Commands();
 	public static MaxPlayers MAX_PLAYERS = new MaxPlayers();
     
+	public static String getNode() {
+		String directory = Thread.currentThread().getStackTrace()[2].getClassName().toLowerCase().replaceAll("me.dennis.autorestart.utils.config.", "");
+		String method = Thread.currentThread().getStackTrace()[2].getMethodName().toLowerCase();
+		return directory + "." + method;
+	}
+	
     public static void setConfig(FileConfiguration config) {
         Config.config = config;
         VERSION = getInteger("version", 0);

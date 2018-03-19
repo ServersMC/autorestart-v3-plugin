@@ -5,20 +5,20 @@ import java.util.List;
 import me.dennis.autorestart.utils.config.Config;
 import me.dennis.autorestart.utils.config.private_messages.messages.Status;
 
-public class Messages extends Config {
+public class Messages {
 
 	public List<String> TIME() {
-		return getStringList("private_messages.messages.time");
+		return Config.getStringList(Config.getNode());
 	}
 
 	public Status STATUS = new Status();
 	
 	public List<String> CHANGE() {
-		return getStringList("private_messages.messages.change");
+		return Config.getStringList(Config.getNode());
 	}
 
 	public List<String> PAUSE_REMINDER() {
-		return getStringList("private_messages.messages.pause_reminder");
+		return Config.getStringList(Config.getNode());
 	}
 
 }

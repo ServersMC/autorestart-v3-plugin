@@ -6,17 +6,17 @@ import me.dennis.autorestart.utils.config.private_messages.enabled.Status;
 public class Enabled {
 
 	public Boolean TIME() {
-		return Config.getBoolean("private_messages.enabled.time", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 
 	public Status STATUS = new Status();
 	
 	public Boolean CHANGE() {
-		return Config.getBoolean("private_messages.enabled.change", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 
 	public Boolean PAUSE_REMINDER() {
-		return Config.getBoolean("private_messages.enabled.pause_reminder", true);
+		return Config.getBoolean(Config.getNode(), true);
 	}
 
 }

@@ -5,17 +5,17 @@ import me.dennis.autorestart.utils.config.main.Modes;
 public class Main {
 
 	public String RESTART_MODE() {
-		return Config.getString("main.restart_mode", "interval");
+		return Config.getString(Config.getNode(), "interval");
 	}
 
 	public Modes MODES = new Modes();
 
 	public String PREFIX() {
-		return Config.getString("main.prefix", "&f[&7AutoRestart&f] &e");
+		return Config.getString(Config.getNode(), "&f[&7AutoRestart&f] &e");
 	}
 
 	public String KICK_MESSAGE() {
-		return Config.getString("main.kick_message", "&cServer Restarting! We will be back up any minute!");
+		return Config.getString(Config.getNode(), "&cServer Restarting! We will be back up any minute!");
 	}
 
 }

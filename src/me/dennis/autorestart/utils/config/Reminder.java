@@ -9,15 +9,15 @@ public class Reminder {
 	public Enabled ENABLED = new Enabled();
 
 	public List<Integer> MINUTES() {
-		return Config.getIntegerList("reminder.minutes");
+		return Config.getIntegerList(Config.getNode());
 	}
 
 	public Integer SECONDS() {
-		return Config.getInteger("reminder.seconds", 5);
+		return Config.getInteger(Config.getNode(), 5);
 	}
 
 	public Integer PAUSE_REMINDER() {
-		return Config.getInteger("reminder.pause_reminder", 10);
+		return Config.getInteger(Config.getNode(), 10);
 	}
 
 }
