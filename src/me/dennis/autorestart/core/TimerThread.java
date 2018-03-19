@@ -1,5 +1,7 @@
 package me.dennis.autorestart.core;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -72,6 +74,16 @@ public class TimerThread implements Runnable {
 			
 			// Timer decrement
 			TIME--;
+		}
+		
+		// Request RESTART for AutoRestart-BootLoader
+		File file = new File("RESTART");
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				Console.catchError(e, "TimerThread.run():requestRestart");
+			}
 		}
 		
 		// Global broadcast chat / popup handler

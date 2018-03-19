@@ -11,7 +11,7 @@ public enum FileEnum {
     CONFIG(new Callable<Void>() {
         @Override
         public Void call() throws Exception {
-            if (!new File(AutoRestart.PLUGIN.getDataFolder(),  "config.yml").exists()) {
+            if (!new File(AutoRestart.PLUGIN.getDataFolder(), "config.yml").exists()) {
                 AutoRestart.PLUGIN.saveResource("config.yml", false);
             }
             return null;
@@ -21,7 +21,7 @@ public enum FileEnum {
         @Override
         public Void call() throws Exception {
             if (System.getProperty("os.name").contains("Win")) {
-            	AutoRestart.PLUGIN.saveResource("start_server.bat", true);
+            	AutoRestart.PLUGIN.saveResource("start_bootloader.bat", true);
             }
             return null;
         };
@@ -30,10 +30,19 @@ public enum FileEnum {
         @Override
         public Void call() throws Exception {
             if (!System.getProperty("os.name").contains("Win")) {
-            	AutoRestart.PLUGIN.saveResource("start_server.sh", true);
+            	AutoRestart.PLUGIN.saveResource("start_bootloader.sh", true);
             }
             return null;
         };
+    }),
+    BOOTLOADER(new Callable<Void>() {
+		@Override
+		public Void call() throws Exception {
+            if (!new File(AutoRestart.PLUGIN.getDataFolder(), "AutoRestart-BootLoader.jar").exists()) {
+                AutoRestart.PLUGIN.saveResource("AutoRestart-BootLoader.jar", false);
+            }
+			return null;
+		}
     });
     
     public Callable<Void> func;
