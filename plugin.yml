@@ -1,5 +1,5 @@
 name: AutoRestart
-version: 3.0.4
+version: 3.0.5
 main: me.dennis.autorestart.core.AutoRestart
 author: ServersMC, DennisLysenko
 commands:
