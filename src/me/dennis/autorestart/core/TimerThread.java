@@ -2,12 +2,15 @@ package me.dennis.autorestart.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import me.dennis.autorestart.utils.TimeManager;
 import me.dennis.autorestart.utils.Console;
 import me.dennis.autorestart.utils.Messenger;
 import me.dennis.autorestart.utils.ShutdownTimeout;
@@ -94,15 +97,10 @@ public class TimerThread implements Runnable {
 			final Player player = (Player) Bukkit.getOnlinePlayers().toArray()[0];
 			
 			// Bukkit Scheduler to avoid asynchronous error
-			Bukkit.getScheduler().scheduleSyncDelayedTask(AutoRestart.PLUGIN, new Runnable() {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(AutoRestart.PLUGIN, () -> {
 				
-				@Override
-				public void run() {
-					
-					// Player kick / restart message
-					player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Config.MAIN.KICK_MESSAGE()));
-					
-				}
+				// Player kick / restart message
+				player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Config.MAIN.KICK_MESSAGE()));
 				
 			});
 			
@@ -148,21 +146,73 @@ public class TimerThread implements Runnable {
 	}
 	
 	public void calculateTimer() {
+		// Initialize variable
+		boolean doDefault = false;
+		
 		// Check restart mode
 		switch (Config.MAIN.RESTART_MODE().toUpperCase()) {
+		
+		// Interval timer calculator
 		case "INTERVAL":
+
+			doDefault = true;
+			break;
+
+		// Time stamp timer calculator
+		case "TIMESTAMP":
 			
-			// Interval timer calculator
-			TIME = (int) (Config.MAIN.MODES.INTERVAL() * 3600);
+			List<String> timestamps = Config.MAIN.MODES.TIMESTAMP();
+			List<Long> differences = new ArrayList<Long>();
+			Long now = Calendar.getInstance().getTimeInMillis();
+			
+			// Convert time stamps to a list of differences
+			for (String timestamp : timestamps) {
+				Long convertedTime = TimeManager.parseTimeStamp(timestamp);
+				
+				// Check if converted time was accepted
+				if (convertedTime == null) {
+					Console.warn(timestamp + " does not follow correct format!");
+					continue;
+				}
+				
+				// Add converted time to test list
+				differences.add(convertedTime - now);
+			}
+			
+			// Check if test list is empty
+			if (differences.isEmpty()) {
+				Console.warn("There are no accepted timestamps availiable! Please check config to ensure that you have followed the correct format.");
+				doDefault = true;
+				break;
+			}
+			
+			// Find smallest difference
+			Long closestTime = differences.get(0);
+			for (int i = 1; i < differences.size(); i++) {
+				Long test = differences.get(i);
+				if (test < closestTime) {
+					closestTime = test;
+				}
+			}
+			
+			// Convert milliseconds to TIME
+			TIME = (int) (closestTime / 1000l);
 			break;
 			
 		default:
 
 			// Default timer calculator
-			TIME = (int) (Config.MAIN.MODES.INTERVAL() * 3600);
+			doDefault = true;
 			Console.err("Restart mode \"" + Config.MAIN.RESTART_MODE() + "\" was not found! Switching to interval mode!");
 			break;
+
+		}
+		
+		// Do default when requested
+		if (doDefault) {
 			
+			// Calculate interval time
+			TIME = (int) (Config.MAIN.MODES.INTERVAL() * 3600);
 		}
 	}
 

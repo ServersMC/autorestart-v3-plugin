@@ -1,5 +1,7 @@
 package me.dennis.autorestart.utils.config.main;
 
+import java.util.List;
+
 import me.dennis.autorestart.utils.config.Config;
 
 public class Modes {
@@ -8,8 +10,8 @@ public class Modes {
 		return Config.getDouble(Config.getNode(), 3d);
 	}
 
-	public String TIMESTAMP() {
-		return Config.getString(Config.getNode(), "6:00");
+	public List<String> TIMESTAMP() {
+		return Config.getStringList(Config.getNode());
 	}
 	
 }

@@ -50,8 +50,7 @@ public class Messenger {
 	}
 	
 	public static String formatS(String s) {
-		HMS hms = TimerParser.parseToHMS();
-		return s.replaceAll("%s", hms.S.toString());
+		return s.replaceAll("%s", AutoRestart.TIMER.TIME.toString());
 	}
 
 	public static String formatHMS(String s) {

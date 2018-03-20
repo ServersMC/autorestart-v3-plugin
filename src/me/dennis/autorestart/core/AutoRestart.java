@@ -63,15 +63,12 @@ public class AutoRestart extends JavaPlugin {
 			Console.info("Loaded!");
 			
 			// Check for updates
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				@Override
-				public void run() {
-					if (UpdateChecker.checkUpdate()) {
-						Console.warn("There is a new version of AutoRestart! Go get it now!");
-					}
-					else {
-						Console.info("Up to date!");
-					}
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
+				if (UpdateChecker.checkUpdate()) {
+					Console.warn("There is a new version of AutoRestart! Go get it now!");
+				}
+				else {
+					Console.info("Up to date!");
 				}
 			});
 		} catch (Exception e) {
