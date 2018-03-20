@@ -1,2 +1,3 @@
 3.2.1
 - Show latest update when update is found.
+- Added update messenger in chat

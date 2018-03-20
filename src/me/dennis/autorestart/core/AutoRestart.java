@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dennis.autorestart.commands.CmdAutoRestart;
 import me.dennis.autorestart.enums.FileEnum;
+import me.dennis.autorestart.events.UpdateNotifiyEvent;
 import me.dennis.autorestart.utils.Console;
 import me.dennis.autorestart.utils.UpdateChecker;
 import me.dennis.autorestart.utils.config.Config;
@@ -50,6 +51,9 @@ public class AutoRestart extends JavaPlugin {
 				Console.warn("Config file has been backed up to " + rename.getName() + "!");
 			}
 
+			// Event register
+			Bukkit.getPluginManager().registerEvents(new UpdateNotifiyEvent(), PLUGIN);
+			
 			// Command setup
 			new CmdAutoRestart();
 			CmdAutoRestart.setupSubCommands();
@@ -63,8 +67,9 @@ public class AutoRestart extends JavaPlugin {
 			Console.info("Loaded!");
 			
 			// Check for updates
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
-				if (UpdateChecker.checkUpdate()) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(PLUGIN, () -> {
+				UpdateChecker.checkUpdate();
+				if (UpdateChecker.UPDATE_FOUND) {
 					Console.warn("There is a new version of AutoRestart! Go get it now! Latest version: v" + UpdateChecker.LATEST_VERSION);
 				}
 				else {

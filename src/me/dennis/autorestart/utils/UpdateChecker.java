@@ -10,8 +10,9 @@ import me.dennis.autorestart.core.AutoRestart;
 public class UpdateChecker {
 
 	public static String LATEST_VERSION = "";
+	public static Boolean UPDATE_FOUND = false;
 	
-	public static boolean checkUpdate() {
+	public static void checkUpdate() {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("https://gitlab.com/dennislysenko/AutoRestart-v3/raw/master/plugin.yml").openStream()));
 			String line;
@@ -22,15 +23,10 @@ public class UpdateChecker {
 				}
 			}
 			reader.close();
-			if (LATEST_VERSION.replace("v", "").equalsIgnoreCase(AutoRestart.VERSION)) {
-				return false;
+			if (!LATEST_VERSION.replace("v", "").equalsIgnoreCase(AutoRestart.VERSION)) {
+				UPDATE_FOUND = true;
 			}
-			else {
-				return true;
-			}
-		} catch (IOException ex) {
-			return false;
-		}
+		} catch (IOException ex) {}
 	}
 	
 }
