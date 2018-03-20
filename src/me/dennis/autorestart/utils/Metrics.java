@@ -1,4 +1,4 @@
-package org.bstats.bukkit;
+package me.dennis.autorestart.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

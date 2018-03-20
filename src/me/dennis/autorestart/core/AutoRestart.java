@@ -3,13 +3,13 @@ package me.dennis.autorestart.core;
 import java.io.File;
 import java.util.Calendar;
 
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.dennis.autorestart.commands.CmdAutoRestart;
 import me.dennis.autorestart.enums.FileEnum;
 import me.dennis.autorestart.utils.Console;
+import me.dennis.autorestart.utils.Metrics;
 import me.dennis.autorestart.utils.UpdateChecker;
 import me.dennis.autorestart.utils.config.Config;
 
