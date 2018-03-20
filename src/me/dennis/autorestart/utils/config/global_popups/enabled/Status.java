@@ -5,11 +5,11 @@ import me.dennis.autorestart.utils.config.Config;
 public class Status {
 
 	public Boolean START() {
-		return Config.getBoolean(Config.getNode(), true);
+		return Config.GLOBAL_POPUPS.getBoolean(Config.getNode(), true);
 	}
 
 	public Boolean PAUSE() {
-		return Config.getBoolean(Config.getNode(), true);
+		return Config.GLOBAL_POPUPS.getBoolean(Config.getNode(), true);
 	}
 
 }

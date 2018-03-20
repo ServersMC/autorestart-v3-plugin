@@ -7,11 +7,11 @@ import me.dennis.autorestart.utils.config.Config;
 public class Status {
 
 	public List<String> START() {
-		return Config.getStringList(Config.getNode());
+		return Config.PRIVATE_MESSAGES.getStringList(Config.getNode());
 	}
 
 	public List<String> PAUSE() {
-		return Config.getStringList(Config.getNode());
+		return Config.PRIVATE_MESSAGES.getStringList(Config.getNode());
 	}
 	
 }

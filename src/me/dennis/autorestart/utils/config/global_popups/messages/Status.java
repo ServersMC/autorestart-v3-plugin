@@ -6,11 +6,11 @@ import me.dennis.autorestart.utils.config.Config;
 public class Status {
 
 	public ConfigPopup START() {
-		return new ConfigPopup(Config.getNode(), "&cAutoRestart has started!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
+		return new ConfigPopup(Config.GLOBAL_POPUPS, Config.getNode(), "&cAutoRestart has started!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
 	}
 	
 	public ConfigPopup PAUSE() {
-		return new ConfigPopup(Config.getNode(), "&cAutoRestart has been paused!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
+		return new ConfigPopup(Config.GLOBAL_POPUPS, Config.getNode(), "&cAutoRestart has been paused!", "", new Integer[]{20, 40, 20}, new Integer[]{20, 40, 20});
 	}
 	
 }

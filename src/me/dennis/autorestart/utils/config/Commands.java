@@ -2,18 +2,20 @@ package me.dennis.autorestart.utils.config;
 
 import java.util.List;
 
-public class Commands {
+import me.dennis.autorestart.objects.ConfigFile;
+
+public class Commands extends ConfigFile {
 
 	public Boolean ENABLED() {
-		return Config.getBoolean(Config.getNode(), false);
+		return Config.COMMANDS.getBoolean(Config.getNode(), false);
 	}
 
 	public Integer SECONDS() {
-		return Config.getInteger(Config.getNode(), 5);
+		return Config.COMMANDS.getInteger(Config.getNode(), 5);
 	}
 
 	public List<String> LIST() {
-		return Config.getStringList(Config.getNode());
+		return Config.COMMANDS.getStringList(Config.getNode());
 	}
 
 }

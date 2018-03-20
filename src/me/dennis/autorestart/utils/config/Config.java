@@ -1,14 +1,7 @@
 package me.dennis.autorestart.utils.config;
 
-import java.util.List;
-
-import org.bukkit.configuration.file.FileConfiguration;
-
 public class Config {
 
-    private static FileConfiguration config = null;
-    
-    public static Integer VERSION;
 	public static Main MAIN = new Main();
 	public static Reminder REMINDER = new Reminder();
 	public static GlobalBroadcast GLOBAL_BROADCAST = new GlobalBroadcast();
@@ -22,39 +15,6 @@ public class Config {
 		String directory = Thread.currentThread().getStackTrace()[2].getClassName().toLowerCase().replaceAll("me.dennis.autorestart.utils.config.", "");
 		String method = Thread.currentThread().getStackTrace()[2].getMethodName().toLowerCase();
 		return directory + "." + method;
-	}
-	
-    public static void setConfig(FileConfiguration config) {
-        Config.config = config;
-        VERSION = getInteger("version", 0);
-    }
-    
-    public static FileConfiguration getConfig() {
-        return config;
-    }
-
-    public static String getString(String node, String defaultValue) {
-		return getConfig().getString(node, defaultValue);
-	}
-    
-    public static Integer getInteger(String node, Integer defaultValue) {
-		return getConfig().getInt(node, defaultValue);
-	}
-    
-    public static Double getDouble(String node, Double defaultValue) {
-		return getConfig().getDouble(node, defaultValue);
-	}
-    
-    public static Boolean getBoolean(String node, Boolean defaultValue) {
-		return getConfig().getBoolean(node, defaultValue);
-	}
-    
-    public static List<Integer> getIntegerList(String node) {
-		return getConfig().getIntegerList(node);
-	}
-    
-    public static List<String> getStringList(String node) {
-		return getConfig().getStringList(node);
 	}
 	
 }

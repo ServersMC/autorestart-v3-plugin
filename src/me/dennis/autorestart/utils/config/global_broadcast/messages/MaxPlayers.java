@@ -4,14 +4,14 @@ import java.util.List;
 
 import me.dennis.autorestart.utils.config.Config;
 
-public class MaxPlayers extends Config {
+public class MaxPlayers {
 
 	public List<String> ALERT() {
-		return getStringList(Config.getNode());
+		return Config.GLOBAL_BROADCAST.getStringList(Config.getNode());
 	}
 
 	public List<String> PRE_SHUTDOWN() {
-		return getStringList(Config.getNode());
+		return Config.GLOBAL_BROADCAST.getStringList(Config.getNode());
 	}
 	
 }

@@ -1,17 +1,19 @@
 package me.dennis.autorestart.utils.config;
 
-public class MaxPlayers {
+import me.dennis.autorestart.objects.ConfigFile;
+
+public class MaxPlayers extends ConfigFile {
 
 	public Boolean ENABLED() {
-		return Config.getBoolean(Config.getNode(), true);
+		return Config.MAX_PLAYERS.getBoolean(Config.getNode(), true);
 	}
 
 	public Integer AMOUNT() {
-		return Config.getInteger(Config.getNode(), 10);
+		return Config.MAX_PLAYERS.getInteger(Config.getNode(), 10);
 	}
 
 	public Integer DELAY() {
-		return Config.getInteger(Config.getNode(), 10);
+		return Config.MAX_PLAYERS.getInteger(Config.getNode(), 10);
 	}
 
 }

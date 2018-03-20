@@ -5,14 +5,13 @@ import org.bukkit.command.CommandSender;
 
 import me.dennis.autorestart.abstracts.AutoCommand;
 import me.dennis.autorestart.core.AutoRestart;
-import me.dennis.autorestart.utils.config.Config;
+import me.dennis.autorestart.objects.ConfigFile;
 
 public class CmdReload extends AutoCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		AutoRestart.PLUGIN.reloadConfig();
-        Config.setConfig(AutoRestart.PLUGIN.getConfig());
+		ConfigFile.loadConfig();
 		AutoRestart.TIMER.calculateTimer();
 		sender.sendMessage(ChatColor.GRAY + "Config has been reloaded!");
 	}

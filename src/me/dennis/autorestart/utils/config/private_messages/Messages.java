@@ -8,17 +8,17 @@ import me.dennis.autorestart.utils.config.private_messages.messages.Status;
 public class Messages {
 
 	public List<String> TIME() {
-		return Config.getStringList(Config.getNode());
+		return Config.PRIVATE_MESSAGES.getStringList(Config.getNode());
 	}
 
 	public Status STATUS = new Status();
 	
 	public List<String> CHANGE() {
-		return Config.getStringList(Config.getNode());
+		return Config.PRIVATE_MESSAGES.getStringList(Config.getNode());
 	}
 
 	public List<String> PAUSE_REMINDER() {
-		return Config.getStringList(Config.getNode());
+		return Config.PRIVATE_MESSAGES.getStringList(Config.getNode());
 	}
 
 }
