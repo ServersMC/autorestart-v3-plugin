@@ -133,7 +133,7 @@ public class TimerThread implements Runnable {
 		// Timeout runnable if error on kick
 		new Thread(new ShutdownTimeout()).start();
 		
-		// Wait until players are successfully kicked, unless timeout is finished
+		// Wait until players are successfully kicked, unless timeout is called
 		while (!ShutdownTimeout.timeout) {
 			if (Bukkit.getOnlinePlayers().size() == 0) {
 				break;
