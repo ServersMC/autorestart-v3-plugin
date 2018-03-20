@@ -3,6 +3,7 @@ package me.dennis.autorestart.core;
 import java.io.File;
 import java.util.Calendar;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,14 +17,16 @@ public class AutoRestart extends JavaPlugin {
 
 	public static AutoRestart PLUGIN;
 	public static String VERSION;
+	public static Metrics METRICS;
 	public static TimerThread TIMER = new TimerThread();
 
 	@Override
 	public void onEnable() {
 		try {
-			// Plug-in
+			// Plugin variables
 			PLUGIN = this;
 			VERSION = getDescription().getVersion();
+			METRICS = new Metrics(PLUGIN);
 
 			// Setup plugin folder if does not exist
 			getDataFolder().mkdirs();
@@ -61,9 +64,6 @@ public class AutoRestart extends JavaPlugin {
 			// Timer thread
 			TIMER.calculateTimer();
 			new Thread(TIMER).start();
-
-			// Done
-			Console.info("Loaded!");
 			
 			// Check for updates
 			Bukkit.getScheduler().scheduleSyncDelayedTask(PLUGIN, () -> {
@@ -75,6 +75,9 @@ public class AutoRestart extends JavaPlugin {
 					Console.info("Up to date!");
 				}
 			});
+			
+			// Done
+			Console.info("Loaded!");
 		} catch (Exception e) {
 			Console.catchError(e, "Unfiltered Error!");
 		}
