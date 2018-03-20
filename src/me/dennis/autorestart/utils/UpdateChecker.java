@@ -9,19 +9,20 @@ import me.dennis.autorestart.core.AutoRestart;
 
 public class UpdateChecker {
 
+	public static String LATEST_VERSION = "";
+	
 	public static boolean checkUpdate() {
-		String latestVersion = "";
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("https://gitlab.com/dennislysenko/AutoRestart-v3/raw/master/plugin.yml").openStream()));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				if (line.startsWith("version:")) {
-					latestVersion = line.split("version:")[1].trim();
+					LATEST_VERSION = line.split("version:")[1].trim();
 					break;
 				}
 			}
 			reader.close();
-			if (latestVersion.replace("v", "").equalsIgnoreCase(AutoRestart.VERSION)) {
+			if (LATEST_VERSION.replace("v", "").equalsIgnoreCase(AutoRestart.VERSION)) {
 				return false;
 			}
 			else {
