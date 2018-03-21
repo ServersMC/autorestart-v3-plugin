@@ -34,6 +34,7 @@ public class AutoRestart extends JavaPlugin {
 			}
 
 			// Configuration file
+			ConfigFile.setupConfigFiles();
 			ConfigFile.loadConfig();
 			ConfigFile.updateConfig();
 
@@ -63,7 +64,7 @@ public class AutoRestart extends JavaPlugin {
 			// Done
 			Console.info("Loaded!");
 		} catch (Exception e) {
-			Console.catchError(e, "Unfiltered Error!");
+			Console.catchError(e, "UNFILTERED ERROR");
 		}
 	}
 	

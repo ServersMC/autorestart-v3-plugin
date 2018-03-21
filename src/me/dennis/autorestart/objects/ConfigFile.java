@@ -1,6 +1,8 @@
 package me.dennis.autorestart.objects;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -10,6 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import me.dennis.autorestart.core.AutoRestart;
 import me.dennis.autorestart.utils.Console;
+import me.dennis.autorestart.utils.config.Config;
 
 public abstract class ConfigFile {
 
@@ -17,9 +20,30 @@ public abstract class ConfigFile {
 	
 	private static List<ConfigFile> configs = new ArrayList<ConfigFile>();
 	
+	public static void setupConfigFiles() {
+		configs.add(Config.MAIN);
+		configs.add(Config.REMINDER);
+		configs.add(Config.GLOBAL_BROADCAST);
+		configs.add(Config.PRIVATE_MESSAGES);
+		configs.add(Config.GLOBAL_POPUPS);
+		configs.add(Config.PRIVATE_POPUPS);
+		configs.add(Config.COMMANDS);
+		configs.add(Config.MAX_PLAYERS);
+	}
+	
 	public static void loadConfig() {
 		for (ConfigFile config : configs) {
+			// Load configuration from plugin folder
 			config.CONFIG = YamlConfiguration.loadConfiguration(config.CONFIG_FILE);
+			
+			// Load configuration from jar file
+			InputStream fileStream = AutoRestart.PLUGIN.getResource(config.CONFIG_FILE.getName());
+			FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(fileStream));
+			
+			// Set jar file configuration to defaults
+			config.CONFIG.setDefaults(defaultConfig);
+			
+			// Set current version from plugin folder
 			config.VERSION = config.CONFIG.getInt("version", 0);
 		}
 	}
@@ -47,7 +71,7 @@ public abstract class ConfigFile {
 				}
 				
 				// Renamed out dated configuration file
-				config.CONFIG_FILE.renameTo(rename);
+				new File(config.CONFIG_FILE.getPath()).renameTo(rename);
 				
 				// Save new configuration file
 				AutoRestart.PLUGIN.saveResource(config.CONFIG_FILE.getName(), true);
@@ -56,6 +80,7 @@ public abstract class ConfigFile {
 				Console.warn("Config file has been backed up to " + rename.getName() + "!");
 				
 				// Reload configuration file
+				Console.warn(config.CONFIG_FILE.getName());
 				config.CONFIG = YamlConfiguration.loadConfiguration(config.CONFIG_FILE);
 			}
 		}
@@ -69,25 +94,7 @@ public abstract class ConfigFile {
 
 	public ConfigFile() {
 		// Get class name of ConfigFile
-		String className = Thread.currentThread().getStackTrace()[2].getFileName().split("\\.")[0];
-		
-		// Convert class name to file name
-		String fileName = "";
-		for (int i = 0; i < className.length(); i++) {
-			char c = className.charAt(i);
-			
-			// Check if character is upper case
-			if (i != 0) {
-				if (Character.isUpperCase(c)) {
-					fileName += "_";
-				}
-			}
-			
-			// Append character to fileName string
-			fileName += Character.toString(c).toLowerCase();
-		}
-		// Append file extension
-		fileName += ".config.yml";
+		String fileName = Thread.currentThread().getStackTrace()[2].getFileName().split("\\.")[0] + ".yml";
 		
 		// Declare configuration File.class
 		CONFIG_FILE = new File(AutoRestart.PLUGIN.getDataFolder(), fileName);
@@ -95,16 +102,13 @@ public abstract class ConfigFile {
 		// Check if configuration file exists
 		if (!CONFIG_FILE.exists()) {
 			
-			// save file
+			// Save file
 			AutoRestart.PLUGIN.saveResource(fileName, true);
 			
 			// Message console
-			Console.info("Created " + fileName);
+			Console.info("Created " + fileName + " config file!");
 			
 		}
-		
-		// Add self to static list
-		configs.add(this);
 	}
 
     public String getString(String node, String defaultValue) {
