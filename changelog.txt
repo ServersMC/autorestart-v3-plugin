@@ -1,5 +1,5 @@
 3.2.1
-- Show latest update when update is found.
+- Show latest update version when update is found.
 - Added update messenger in chat
 - Added plugin metrics
 - Separated configuration files
