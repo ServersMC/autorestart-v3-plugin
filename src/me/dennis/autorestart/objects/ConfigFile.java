@@ -77,10 +77,9 @@ public abstract class ConfigFile {
 				AutoRestart.PLUGIN.saveResource(config.CONFIG_FILE.getName(), true);
 				
 				// Notify Console
-				Console.warn("Config file has been backed up to " + rename.getName() + "!");
+				Console.warn("Config file has been backed up to \"" + rename.getName() + "\"!");
 				
 				// Reload configuration file
-				Console.warn(config.CONFIG_FILE.getName());
 				config.CONFIG = YamlConfiguration.loadConfiguration(config.CONFIG_FILE);
 			}
 		}
