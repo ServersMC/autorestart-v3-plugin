@@ -1,3 +1,5 @@
+3.3.1
+- Added MultiCraft support
 3.3.0
 - Fixed BootLoader (Memory Leak)
 - Updated to latest Spigot version
