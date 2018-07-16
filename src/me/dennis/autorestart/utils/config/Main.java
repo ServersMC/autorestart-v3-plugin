@@ -5,6 +5,10 @@ import me.dennis.autorestart.utils.config.main.Modes;
 
 public class Main extends ConfigFile {
 
+	public boolean MULTICRAFT() {
+		return Config.MAIN.getBoolean(Config.getNode(), false);
+	}
+	
 	public String RESTART_MODE() {
 		return Config.MAIN.getString(Config.getNode(), "interval");
 	}

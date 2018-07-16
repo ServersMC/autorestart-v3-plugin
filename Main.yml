@@ -1,5 +1,7 @@
 ## Main configuration values
 main:
+    ## Multicraft, and/or Bukkit.yml restart_script support.
+    multicraft: false
     ## restart modes availiable 'interval', and 'timestamp'
     restart_mode: 'interval'
     ## restart mode specific settings
@@ -18,4 +20,4 @@ main:
     ## Client restart message in game chat
     kick_message: '&cServer Restarting! We will be back up any minute!'
 ## DO NOT TOUCH!!
-version: 1
+version: 2

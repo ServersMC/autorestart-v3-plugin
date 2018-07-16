@@ -10,10 +10,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import me.dennis.autorestart.utils.TimeManager;
 import me.dennis.autorestart.utils.Console;
 import me.dennis.autorestart.utils.Messenger;
-import me.dennis.autorestart.utils.ShutdownTimeout;
+import me.dennis.autorestart.utils.TimeManager;
 import me.dennis.autorestart.utils.config.Config;
 
 public class TimerThread implements Runnable {
@@ -81,7 +80,7 @@ public class TimerThread implements Runnable {
 		
 		// Request RESTART for AutoRestart-BootLoader
 		File file = new File("RESTART");
-		if (!file.exists()) {
+		if (!file.exists() && !Config.MAIN.MULTICRAFT()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
@@ -130,14 +129,20 @@ public class TimerThread implements Runnable {
 			}
 		}
 		
-		// Timeout runnable if error on kick
-		new Thread(new ShutdownTimeout()).start();
+		// Timeout alarm initialization
+		long timeout = System.currentTimeMillis() + 5000;
 		
 		// Wait until players are successfully kicked, unless timeout is called
-		while (!ShutdownTimeout.timeout) {
+		while (timeout < System.currentTimeMillis()) {
 			if (Bukkit.getOnlinePlayers().size() == 0) {
 				break;
 			}
+		}
+		
+		// Multicraft shutdown
+		if (Config.MAIN.MULTICRAFT()) {
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
+			return;
 		}
 		
 		// Shutdown server method
