@@ -12,7 +12,7 @@ public enum FileEnum {
         @Override
         public Void call() throws Exception {
             if (System.getProperty("os.name").contains("Win")) {
-            	AutoRestart.PLUGIN.saveResource("start_bootloader.bat", true);
+            	AutoRestart.PLUGIN.saveResource("start.bat", true);
             }
             return null;
         };
@@ -21,7 +21,7 @@ public enum FileEnum {
         @Override
         public Void call() throws Exception {
             if (!System.getProperty("os.name").contains("Win")) {
-            	AutoRestart.PLUGIN.saveResource("start_bootloader.sh", true);
+            	AutoRestart.PLUGIN.saveResource("start.sh", true);
             }
             return null;
         };
@@ -30,7 +30,7 @@ public enum FileEnum {
 		@Override
 		public Void call() throws Exception {
             if (!new File(AutoRestart.PLUGIN.getDataFolder(), "AutoRestart-BootLoader.jar").exists()) {
-                AutoRestart.PLUGIN.saveResource("AutoRestart-BootLoader.jar", false);
+                //AutoRestart.PLUGIN.saveResource("AutoRestart-BootLoader.jar", false);
             }
 			return null;
 		}

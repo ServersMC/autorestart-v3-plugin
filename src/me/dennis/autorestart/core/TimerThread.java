@@ -1,39 +1,33 @@
 package me.dennis.autorestart.core;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 import me.dennis.autorestart.utils.Console;
 import me.dennis.autorestart.utils.Messenger;
 import me.dennis.autorestart.utils.TimeManager;
 import me.dennis.autorestart.utils.config.Config;
 
-public class TimerThread implements Runnable {
+public class TimerThread {
 
 	public Boolean PAUSED = false;
 	public Integer PAUSED_TIMER = 0;
 	public Integer TIME;
+	public Integer loopId = 0;
+	public Integer shutdownId = 0;
 	
-	@Override
-	public void run() {
-		while (true) {
-			// Timer freeze frame
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				Console.catchError(e, "TimerThread.run():sleep");
-			}
+	public void runLoop() {
+		
+		loopId = Bukkit.getScheduler().scheduleSyncRepeatingTask(AutoRestart.PLUGIN, () -> {
 			
 			// Timer end break
 			if (TIME == 0) {
-				break;
+				Bukkit.getScheduler().cancelTask(getLoopId());
+				return;
 			}
 			
 			// Check if timer is paused
@@ -42,8 +36,8 @@ public class TimerThread implements Runnable {
 				if (PAUSED_TIMER == Config.REMINDER.PAUSE_REMINDER() * 60) {
 					Messenger.broadcastPauseReminder();
 					PAUSED_TIMER = 0;
+					return;
 				}
-				continue;
 			}
 			PAUSED_TIMER = 0;
 			
@@ -76,77 +70,65 @@ public class TimerThread implements Runnable {
 			
 			// Timer decrement
 			TIME--;
-		}
+		}, 0L, 20L);
 		
-		// Request RESTART for AutoRestart-BootLoader
-		File file = new File("RESTART");
-		if (!file.exists() && !Config.MAIN.MULTICRAFT()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				Console.catchError(e, "TimerThread.run():requestRestart");
-			}
-		}
-		
-		// Global broadcast chat / popup handler
-		Messenger.broadcastShutdown();
-		
-		// Player kick / restart message
-		for (int i = 0; i < Bukkit.getOnlinePlayers().size(); i++) {
-			final Player player = (Player) Bukkit.getOnlinePlayers().toArray()[0];
-			
-			// Bukkit Scheduler to avoid asynchronous error
-			Bukkit.getScheduler().scheduleSyncDelayedTask(AutoRestart.PLUGIN, () -> {
+		shutdownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(AutoRestart.PLUGIN, () -> {
+			if (TIME <= 0) {
+
+				// Global broadcast chat / popup handler
+				Messenger.broadcastShutdown();
 				
 				// Player kick / restart message
-				player.kickPlayer(ChatColor.translateAlternateColorCodes('&', Config.MAIN.KICK_MESSAGE()));
+				Bukkit.getScheduler().callSyncMethod(AutoRestart.PLUGIN, () -> 
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "kickall " + ChatColor.translateAlternateColorCodes('&', Config.MAIN.KICK_MESSAGE()))
+				);
 				
-			});
-			
-		}
-		
-		// Check if max_players is enabled
-		if (Config.MAX_PLAYERS.ENABLED()) {
-			// Check if player count is over configured amount
-			if (Bukkit.getOnlinePlayers().size() >= Config.MAX_PLAYERS.AMOUNT()) {
-				// Broadcast alert (Includes Check if message enabled)
-				Messenger.broadcastMaxplayersAlert();
+				// DISABLED MAX_PLAYERS
+				/*
+				// Check if max_players is enabled
+				if (Config.MAX_PLAYERS.ENABLED()) {
+					// Check if player count is over configured amount
+					if (Bukkit.getOnlinePlayers().size() >= Config.MAX_PLAYERS.AMOUNT()) {
+						// Broadcast alert (Includes Check if message enabled)
+						Messenger.broadcastMaxplayersAlert();
 
-				// Start Shutdown wait
-				while (true) {
-					if (Bukkit.getOnlinePlayers().size() < Config.MAX_PLAYERS.AMOUNT()) {
-						break;
+						// Start Shutdown wait
+						while (true) {
+							if (Bukkit.getOnlinePlayers().size() < Config.MAX_PLAYERS.AMOUNT()) {
+								break;
+							}
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								Console.catchError(e, "ShutdownTimeout.run()");
+							}
+						}
+						
+						// Broadcast pre shutdown message (Includes Check if message enabled)
+						Messenger.broadcastMaxplayersPreShutdown();
 					}
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						Console.catchError(e, "ShutdownTimeout.run()");
+				}
+				*/
+				
+				// Timeout alarm initialization
+				long timeout = System.currentTimeMillis() + 5000;
+				
+				// Wait until players are successfully kicked, unless timeout is called
+				while (timeout < System.currentTimeMillis()) {
+					if (Bukkit.getOnlinePlayers().size() == 0) {
+						break;
 					}
 				}
 				
-				// Broadcast pre shutdown message (Includes Check if message enabled)
-				Messenger.broadcastMaxplayersPreShutdown();
+				// Multicraft shutdown
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
+				
+				// Shutdown server method
+				AutoRestart.PLUGIN.getServer().shutdown();
+				
+				Bukkit.getScheduler().cancelTask(getShutdownId());
 			}
-		}
-		
-		// Timeout alarm initialization
-		long timeout = System.currentTimeMillis() + 5000;
-		
-		// Wait until players are successfully kicked, unless timeout is called
-		while (timeout < System.currentTimeMillis()) {
-			if (Bukkit.getOnlinePlayers().size() == 0) {
-				break;
-			}
-		}
-		
-		// Multicraft shutdown
-		if (Config.MAIN.MULTICRAFT()) {
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
-			return;
-		}
-		
-		// Shutdown server method
-		AutoRestart.PLUGIN.getServer().shutdown();
+		}, 0L, 1L);
 		
 	}
 	
@@ -219,6 +201,14 @@ public class TimerThread implements Runnable {
 			// Calculate interval time
 			TIME = (int) (Config.MAIN.MODES.INTERVAL() * 3600);
 		}
+	}
+	
+	public Integer getLoopId() {
+		return loopId;
+	}
+	
+	public Integer getShutdownId() {
+		return shutdownId;
 	}
 
 }

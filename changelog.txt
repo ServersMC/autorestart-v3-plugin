@@ -1,3 +1,9 @@
+3.3.2
+- Removed AutoRestart-BootLoader.jar method
+- Using Spigots default restart method (Broader support)
+- Changed restart message function (fixes where everyone gets the restart message)
+- Fixed asynchronous errors
+- Disabled max_players (coudln't recreate problem)
 3.3.1
 - Added MultiCraft support
 3.3.0

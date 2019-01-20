@@ -48,7 +48,7 @@ public class AutoRestart extends JavaPlugin {
 
 			// Timer thread
 			TIMER.calculateTimer();
-			new Thread(TIMER).start();
+			TIMER.runLoop();
 			
 			// Check for updates
 			Bukkit.getScheduler().scheduleSyncDelayedTask(PLUGIN, () -> {
