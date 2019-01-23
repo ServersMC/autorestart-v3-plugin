@@ -23,13 +23,6 @@ public class TimerThread {
 	public void runLoop() {
 		
 		loopId = Bukkit.getScheduler().scheduleSyncRepeatingTask(AutoRestart.PLUGIN, () -> {
-			
-			// Timer end break
-			if (TIME == 0) {
-				Bukkit.getScheduler().cancelTask(getLoopId());
-				return;
-			}
-			
 			// Check if timer is paused
 			if (PAUSED) {
 				PAUSED_TIMER++;
@@ -39,37 +32,48 @@ public class TimerThread {
 					return;
 				}
 			}
-			PAUSED_TIMER = 0;
-			
-			// Minutes Reminder
-			if (Config.REMINDER.ENABLED.MINUTES()) {
-				List<Integer> minuteReminderList = Config.REMINDER.MINUTES();
-				for (Integer minuteReminder : minuteReminderList) {
-					if (TIME == minuteReminder * 60) {
-						Messenger.broadcastReminderMinutes();
+			else {
+				
+				// Reset Paused Timer
+				PAUSED_TIMER = 0;
+
+				// Timer end break
+				if (TIME == 0) {
+					Bukkit.getScheduler().cancelTask(getLoopId());
+					return;
+				}
+				
+				// Minutes Reminder
+				if (Config.REMINDER.ENABLED.MINUTES()) {
+					List<Integer> minuteReminderList = Config.REMINDER.MINUTES();
+					for (Integer minuteReminder : minuteReminderList) {
+						if (TIME == minuteReminder * 60) {
+							Messenger.broadcastReminderMinutes();
+						}
 					}
 				}
-			}
-			
-			// Seconds Reminder
-			if (Config.REMINDER.ENABLED.SECONDS()) {
-				Integer secondReminder = Config.REMINDER.SECONDS();
-				if (TIME <= secondReminder) {
-					Messenger.broadcastReminderSeconds();
-				}
-			}
-			
-			// Command Execute
-			if (Config.COMMANDS.ENABLED()) {
-				if (TIME == Config.COMMANDS.SECONDS()) {
-					for (String cmd : Config.COMMANDS.LIST()) {
-						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+				
+				// Seconds Reminder
+				if (Config.REMINDER.ENABLED.SECONDS()) {
+					Integer secondReminder = Config.REMINDER.SECONDS();
+					if (TIME <= secondReminder) {
+						Messenger.broadcastReminderSeconds();
 					}
 				}
+				
+				// Command Execute
+				if (Config.COMMANDS.ENABLED()) {
+					if (TIME == Config.COMMANDS.SECONDS()) {
+						for (String cmd : Config.COMMANDS.LIST()) {
+							Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+						}
+					}
+				}
+				
+				// Timer decrement
+				TIME--;
+				
 			}
-			
-			// Timer decrement
-			TIME--;
 		}, 0L, 20L);
 		
 		shutdownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(AutoRestart.PLUGIN, () -> {
