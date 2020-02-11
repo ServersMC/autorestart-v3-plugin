@@ -8,7 +8,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import me.dennis.autorestart.abstracts.AutoCommand;
-import me.dennis.autorestart.commands.autore.*;
+import me.dennis.autorestart.commands.autore.CmdHelp;
+import me.dennis.autorestart.commands.autore.CmdIn;
+import me.dennis.autorestart.commands.autore.CmdNow;
+import me.dennis.autorestart.commands.autore.CmdPause;
+import me.dennis.autorestart.commands.autore.CmdReload;
+import me.dennis.autorestart.commands.autore.CmdStart;
+import me.dennis.autorestart.commands.autore.CmdTime;
 import me.dennis.autorestart.core.AutoRestart;
 import me.dennis.autorestart.utils.Console;
 
@@ -16,7 +22,7 @@ public class CmdAutoRestart implements CommandExecutor {
 
 	public static ArrayList<AutoCommand> subCommands = new ArrayList<AutoCommand>();
 	
-	@Override
+	@Override	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		// Default command text header
 		sender.sendMessage(ChatColor.RED + "AutoRestart " + ChatColor.GRAY + "- v" + AutoRestart.VERSION);
